@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', path='CSS/index.css')}}">
+
+    <link rel="shortcut icon" href="#">
+
+    <title>Доминошки</title>
+</head>
+
+<script src="{{url_for('static', path='/scripts/jquery-3.6.4.min.js')}}"> </script>
+<script src="{{url_for('static', path='/scripts/ajaxJSON.js')}}"> </script>
+<script src="{{url_for('static', path='/scripts/bootstrap.js')}}"> </script>
+<script src="{{url_for('static', path='/scripts/bootstrap.bundle.js')}}"> </script>
+
+<script src="{{url_for('static', path='/scripts/events.js')}}"> </script>
+<script src="{{url_for('static', path='/scripts/manage.js')}}"> </script>
+
+<body>
+
+<div id="main">
+
+    <div id="rigth_menu"> 
+        <div id="rigth_menu_body">
+            <button id="domino_rollback" class="btn">
+                <img class="btn_img" src="{{url_for('static', path='/images/back.png')}}">
+            </button>
+            <button id="clean" class="btn">
+                <img class="btn_img" src="{{url_for('static', path='/images/clean.png')}}">
+            </button>            
+        </div>        
+    </div>
+
+    <div id="left_menu"> 
+        <div id="left_menu_body">
+            <div class="radio_container">
+                <input type="radio" checked id="analize_radio" name="mode" n="6" value="1">
+                <label for="analize_radio">
+                    Анализ
+                </label>
+            </div>
+            <div class="radio_container">
+                <input type="radio" id="predict_radio" name="mode" n="5" value="2">
+                <label for="predict_radio">
+                    Предсказание
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="up_section">
+
+        <div id="table">
+
+            <div id="play_area">
+                {% for i in range(1, 7) %}
+                    <img id="empty_{{loop.index0}}" class="empty" src="data:;base64,{{empty_picture.img}}">
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="down_section">
+
+        <div id="pictures_row">
+            {% for picture in pictures %}
+                <img class="domino_pic" id="{{picture.uid}}" src="data:;base64,{{picture.img}}" up="{{picture.up}}" down="{{picture.down}}">
+            {% endfor %}
+        </div>
+
+        <div id="logs_target">
+            <a href="{{url_for('get_logs')}}">
+                Скачать логи
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
