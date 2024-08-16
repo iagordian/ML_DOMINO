@@ -10,7 +10,7 @@ def get_entrope(data: List[int]) -> float:
 
     entrope = 0
     for el in unique:
-        freack = data.count(el) / length
+        freack = np.sum(data==el) / length
         entrope += freack * np.log2(freack)
 
     return -entrope

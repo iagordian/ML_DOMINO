@@ -31,22 +31,16 @@ def get_ordered_domino_array(random_seed=None):
 
         OrderedDominoCreater(lambda x: x if x % 2 else 0),
         OrderedDominoCreater(lambda x: x if x % 2 else 6),
-        OrderedDominoCreater(lambda x: x if x % 2 else 5),
         OrderedDominoCreater(lambda x: x if x % 2 else 4),
-        OrderedDominoCreater(lambda x: x if x % 2 else 3),
         OrderedDominoCreater(lambda x: x if x % 2 else 2),
-        OrderedDominoCreater(lambda x: x if x % 2 else 1),
 
-        OrderedDominoCreater(lambda x: x if not x % 2 else 0),
         OrderedDominoCreater(lambda x: x if not x % 2 else 6),
         OrderedDominoCreater(lambda x: x if not x % 2 else 5),
         OrderedDominoCreater(lambda x: x if not x % 2 else 4),
         OrderedDominoCreater(lambda x: x if not x % 2 else 3),
         OrderedDominoCreater(lambda x: x if not x % 2 else 1),
 
-        OrderedDominoCreater(lambda x: (x % 4) + 1),
         OrderedDominoCreater(lambda x: (x % 3) + 1),
-        OrderedDominoCreater(lambda x: (x % 4)),
         OrderedDominoCreater(lambda x: (x % 3)),
 
         OrderedDominoCreater(lambda x: 2 if x % 2 else 0),
@@ -155,7 +149,6 @@ def get_ordered_domino_array(random_seed=None):
         OrderedDominoCreater(lambda x: 2 if x < 2 else 4 if x < 4 else 5),
 
         OrderedDominoCreater(lambda x: 2 * x % 3),
-        OrderedDominoCreater(lambda x: 2 * x % 5),
         OrderedDominoCreater(lambda x: 2 * x % 6),
         OrderedDominoCreater(lambda x: 3 * (x % 3)),
 

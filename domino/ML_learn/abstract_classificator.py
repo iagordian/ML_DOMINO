@@ -31,16 +31,7 @@ class ClassificatorLearning(LearningObject, ABC):
             model_name='StandardScaler',
             model_obj=self.scaler_to_bytes()
         )
-    
-    @property
-    def data(self):
-        return ML_Object(
-            model_name=self.model_name,
-            model_obj=self.to_bytes(),
-            threshold=self.threshold,
-            logs=self.log_data
-        )
-    
+      
     
     def predict(self, data, alpha=None):
         if alpha is None:

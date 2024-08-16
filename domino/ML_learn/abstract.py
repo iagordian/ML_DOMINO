@@ -1,4 +1,6 @@
 
+from schemas import ML_Object
+
 from abc import ABC
 import io
 import joblib
@@ -14,6 +16,15 @@ class LearningObject(ABC):
             'model_name': self.model_name,
             **self.model_params
         }
+
+    @property
+    def data(self):
+        return ML_Object(
+            model_name=self.model_name,
+            model_obj=self.to_bytes(),
+            threshold=self.threshold,
+            logs=self.log_data
+        )
 
     def fit(self):
         self.model_obj.fit(self.train_data, self.train_target)

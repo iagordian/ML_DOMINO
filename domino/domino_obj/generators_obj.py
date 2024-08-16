@@ -9,7 +9,7 @@ class DominoCreater:
         self.uid = uuid.uuid4()
 
     def __repr__(self):
-        return f'{self.uid}: {", ".join(map(str, self.get_line()))}'
+        return f'{self.uid}: {", ".join(map(str, self()))}'
 
     def __call__(self) -> List[int]:
         '''Генерирует линию домино'''

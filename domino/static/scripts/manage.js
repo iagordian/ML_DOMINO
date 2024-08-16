@@ -12,7 +12,7 @@ var cl_class = {
 
 var send_domino_funcs = {
     'analize_radio': send_domino_data_to_analize,
-    'predict_radio': send_domino_data_to_predic
+    'predict_radio': send_domino_data_to_predict
 }
 
 function add_domino() {
@@ -22,6 +22,7 @@ function add_domino() {
 
         domino = $(this)
         domino_src = domino.attr('src')
+        add_domino_data(domino.attr('up'), domino.attr('down'))
 
         var empty_id = 'empty_' + up.length
         var empty = $('#' + empty_id)
@@ -30,26 +31,48 @@ function add_domino() {
         var start_offset = domino.offset()
         var start_top = start_offset['top']
         var start_left = start_offset['left']
-
-        var finish_offset = empty.offset()
-        var finish_top = finish_offset['top']
-        var finish_left = finish_offset['left']
         
         var domin_clone = domino.clone()
-        domin_clone.appendTo('body')
-        domin_clone.offset({'top': start_top, 'left': start_left})
+        add_domino_picture(domin_clone, start_top, start_left)
 
-        domin_clone.animate({'top': finish_top, 'left': finish_left}, 300, function() {this.remove(); empty.attr('src', domino_src)});
-   
-        stack.push(empty)
-
-        add_domino_data(domino.attr('up'), domino.attr('down'))
-
-        if (up.length == n) {
-            send_data()
-        }
+        move_domino(domin_clone, send_data)           
 
     }
+}
+
+function add_domino_picture(domino, top, left) {
+    domino.appendTo('body')
+    domino.offset({'top': top, 'left': left})
+}
+
+function move_domino(domino, function_after) {
+
+    var empty_id = 'empty_' + (up.length - 1)
+    var empty = $('#' + empty_id)
+    empty_src = empty.attr('src')
+
+    var finish_offset = empty.offset()
+    var finish_top = finish_offset['top']
+    var finish_left = finish_offset['left']
+
+    domino.animate({'top': finish_top, 'left': finish_left}, 200, function() {this.remove(); empty.attr('src', domino.attr('src')); function_after()});
+    stack.push(empty)
+
+}
+
+function move_domino_simple(domino) {
+
+    var empty_id = 'empty_' + (up.length - 1)
+    var empty = $('#' + empty_id)
+    empty_src = empty.attr('src')
+
+    var finish_offset = empty.offset()
+    var finish_top = finish_offset['top']
+    var finish_left = finish_offset['left']
+
+    domino.animate({'top': finish_top, 'left': finish_left}, 200, function() {this.remove(); empty.attr('src', domino.attr('src'))});
+    stack.push(empty)
+
 }
 
 function send_domino_data_to_analize() {    
@@ -71,7 +94,7 @@ function send_domino_data_to_analize() {
 
 }
 
-function send_domino_data_to_predic() {
+function send_domino_data_to_predict() {
 
     var header = {
         'url': '/predict',
@@ -84,7 +107,13 @@ function send_domino_data_to_predic() {
     }
 
     AjaxQuery.info(header, function(data) {
-        console.log(data, '!!!!!!!!!!!!!!!!')
+        domino_img = data['img']
+
+        domino_img = jQuery(domino_img)
+        add_domino_picture(domino_img, -100, 1300)
+        domino_img.addClass('domino_pic')        
+        add_domino_data(data['up'], data['down'])
+        move_domino_simple(domino_img, get_stack_max_size)         
     })
 }
 
@@ -100,9 +129,12 @@ function get_stack_max_size() {
 }
 
 function send_data() {
-    var radio = $('input[name="mode"]:checked').attr('id')
-    var send_data_func = send_domino_funcs[radio]
-    send_data_func()
+    n = get_stack_max_size()
+    if (up.length == n) {
+        var radio = $('input[name="mode"]:checked').attr('id')
+        var send_data_func = send_domino_funcs[radio]
+        send_data_func()
+    }    
 }
 
 function clear_table() {

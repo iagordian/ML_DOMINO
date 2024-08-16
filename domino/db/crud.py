@@ -50,3 +50,10 @@ def set_best_model(model_name: str, db: Session):
 @db_select
 def get_best_classifier_model(db: Session) -> ML_Object:
     return ML_Object.from_orm(db.query(ML_SQL).filter_by(is_the_best_classifier_model=1).first())
+
+@db_select
+def get_img_bytes(up: int, down: int, db: Session):
+    img = db.query(Picture_obj.img).filter_by(
+        up=up, down=down
+    ).first()
+    return img[0]
