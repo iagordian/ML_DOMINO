@@ -74,19 +74,10 @@ def cnt_cos(data: List[int]) -> float:
     return sum([el > data[i] if not i % 2 else el < data[i] for i, el in enumerate(data[1:])])
 
 
-def is_balanced(data: List[int]) -> bool:
-  '''Проверяет состояние сбалансированности числового ряда'''
-  return len(set([np.sum(data == el) for el in np.unique(data)])) == 1
-
-def balanced(data: List[int]) -> bool:
+def balanced_mark(data: List[int]) -> bool:
   '''Проверяет состояние сбалансированности числового ряда'''
   return len(set([np.sum(data == el) for el in np.unique(data)]))
 
-def is_binary_balanced(data: List[int]) -> bool:
-    return is_balanced(data[:3]) and is_balanced(data[3:])
-
-def is_ternary_balanced(data: List[int]) -> bool:
-    return is_balanced([data[0], data[2], data[4]]) and is_balanced([data[1], data[3], data[5]])
 
 def relations_is_balanced(data: List[int]) -> bool:
   '''Проверяет состояние сбалансированности разницы между числами в ряду'''
@@ -105,3 +96,35 @@ def binary_relations_is_balanced(data: List[int]) -> bool:
         relations_is_balanced(data[:3]),
         relations_is_balanced(data[3:])
     ])
+
+def is_bidirectional_balanced(data, full_array=True):
+  
+    conditions = [
+        data[2] == data[3],
+        data[1] == data[4],
+    ]
+    if full_array:
+        conditions.append(data[0] == data[5])
+
+    return all(conditions)
+
+def is_stepped_balanced(data, full_array=True):
+
+    conditions = [
+        data[5] - data[3] == data[3] - data[1],
+    ]
+    if full_array:
+        conditions.append(data[4] - data[2] == data[2] - data[0])
+
+    return all(conditions)
+
+
+def is_pair_steped_balanced(data, full_array=True):
+
+    conditions = [
+        data[0] - data[3] == data[1] - data[4],
+    ]
+    if full_array:
+        conditions.append(data[1] - data[4] == data[2] - data[5])
+
+    return all(conditions)

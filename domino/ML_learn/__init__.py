@@ -1,4 +1,4 @@
 
 from .linear_classificator import *
-from .decision_tree import DominoDecisionTreeCreator
+from .decision_tree import *
 from .manage import *

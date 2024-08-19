@@ -82,8 +82,8 @@ function send_domino_data_to_analize() {
         'type': 'post',
         'headers': {'Content-Type': "application/json"},
         'data': JSON.stringify({
-            first: up,
-            second: down
+            up: up,
+            down: down
         })
     }
 
@@ -101,8 +101,8 @@ function send_domino_data_to_predict() {
         'type': 'post',
         'headers': {'Content-Type': "application/json"},
         'data': JSON.stringify({
-            first: up,
-            second: down
+            up: up,
+            down: down
         })
     }
 
