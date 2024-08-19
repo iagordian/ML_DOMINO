@@ -97,19 +97,42 @@ body {
 #play_area{
     display: flex;
     justify-content: space-around;
-    width: 100%
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    overflow-x: auto;
+    grid-gap: 8vw;
+    padding: 20px;
+}
+
+#play_area::-webkit-scrollbar{
+    width: 6px;
+    height: 6px;
+}
+
+#play_area::-webkit-scrollbar-track{
+    background: transparent;
+    cursor: pointer;
+}
+
+#play_area::-webkit-scrollbar-thumb{
+    background: #7a6b5f;
+    border-radius: 7px;
+    cursor: pointer;
 }
 
 
 #table{
     min-width: 70%;
+    max-width: 70%;
     background: #fff5ee;
     outline: 3px solid black;
     margin-top: 50px;
     margin-bottom: 50px;
     border-radius: 30px;
     display: flex;
-    align-items: center
+    align-items: center;
+    
 }
 
 .domino_pic{

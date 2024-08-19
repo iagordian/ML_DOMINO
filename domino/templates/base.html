@@ -89,4 +89,23 @@
 
 
 </body>
+
+<script>
+    $(document).bind('wheel', function(e) {
+
+        if(e.originalEvent.wheelDelta / 120 > 0) {
+
+            var s = $('#play_area').scrollLeft()
+            $('#play_area').scrollLeft(s + 100)
+
+        } else {
+
+            var s = $('#play_area').scrollLeft()
+            $('#play_area').scrollLeft(s - 100)
+
+        }
+
+    });
+</script>
+
 </html>
