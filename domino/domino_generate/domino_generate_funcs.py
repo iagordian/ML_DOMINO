@@ -1,4 +1,3 @@
-import random
 
 from domino_obj import OrderedArray, OrderedDominoCreater, \
     RandomArray
@@ -8,7 +7,8 @@ from domino_obj import OrderedArray, OrderedDominoCreater, \
 для обучения ML моделей
 '''
 
-def get_ordered_domino_array(random_seed=None):
+def get_ordered_domino_array(random_seed=None) -> OrderedArray:
+    '''Возвращает набор упорядоченных рядов домино'''
     ordered_domino_array = OrderedArray(
         OrderedDominoCreater(lambda x: x),
         OrderedDominoCreater(lambda x: x + 1),
@@ -323,7 +323,8 @@ def get_ordered_domino_array(random_seed=None):
     ordered_domino_array.train_test_split(random_seed)
     return ordered_domino_array
 
-def get_random_array(random_seed=None):
+def get_random_array(random_seed=None) -> RandomArray:
+    '''Возвращает набор неупорядоченных рядов домино'''
     randoms_array = RandomArray(516, random_seed=random_seed)
     randoms_array.train_test_split(random_seed)
     return randoms_array

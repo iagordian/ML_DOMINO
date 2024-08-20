@@ -25,6 +25,7 @@ class DominoArray(ABC):
     return len(self.data)
 
   def train_test_split(self, random_seed=None):
+    '''Разбивка наборов на тренировочную и тестовую части'''
     random_seed = random_seed or random.randint(0, 100)
     self.train_data, self.test_data = train_test_split(self.data, test_size=0.3, random_state=random_seed)
 
@@ -60,7 +61,7 @@ class OrderedArray(DominoArray):
       task_unique.append(line[:-1])
 
 
-  def try_func(self, func: Callable):
+  def try_func(self, func: Callable) -> bool:
     '''Проверяет, генерирует ли переданная функция новую последовательность'''
     line = [func(i) for i in range(6)]
     return all([

@@ -4,7 +4,7 @@ import configparser
 from files_navigation import join_absolute_path
 
 config = configparser.ConfigParser()
-config.read('config/config.ini')
+config.read('domino/config/config.ini')
 
 RANDOM_SEED = int(config.get('RANDOM', 'seed'))
 

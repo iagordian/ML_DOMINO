@@ -8,6 +8,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score
 import joblib
 import io
+import numpy as np
+from typing import Optional, ByteString
+from best_model_container import BestModelContainer
 
 class ClassificatorLearning(LearningObject, ABC):
 
@@ -26,24 +29,27 @@ class ClassificatorLearning(LearningObject, ABC):
         self.f1 = None
 
     @property
-    def scaler_data(self):
+    def scaler_data(self) -> ML_Object:
         return ML_Object(
             model_name='StandardScaler',
             model_obj=self.scaler_to_bytes()
         )
       
     
-    def predict(self, data, alpha=None):
+    def predict(self, data: np.ndarray, alpha: Optional[int]=None) -> bool:
+        '''Возвращает предсказание объекта классификатора'''
         if alpha is None:
             alpha = self.threshold
         return self.model_obj.predict_proba(data)[:, 1] > alpha
     
-    def scale_data(self):        
+    def scale_data(self):
+        '''Применяет обучение объекта StandartScler на данные для обучения'''      
         self.test_data = self.scaler.fit_transform(self.test_data)
         self.train_data = self.scaler.transform(self.train_data)
    
 
     def add_weights_to_log(self):
+        '''Добавляет веса элементов в предсказании моделей и добавляет в логи'''
         names = ['entrope', 'entrope_secondary', 'entrope_ternary', 'clear_ordered',
                  'secondary_ordered', 'ternary_ordered', 'order_degree', 'binary_order_degree']
         coefs = list(*self.model_obj.coef_)
@@ -71,7 +77,8 @@ class ClassificatorLearning(LearningObject, ABC):
         self.log_data['accuracy'] = accuracy
         self.log_data['f1'] = self.f1
 
-    def scaler_to_bytes(self):
+    def scaler_to_bytes(self) -> ByteString:
+        '''Сохраняет StandartScler в байтовую строку'''
         bytes_container = io.BytesIO()
         joblib.dump(self.scaler, bytes_container)
         bytes_container.seek(0)
@@ -79,7 +86,7 @@ class ClassificatorLearning(LearningObject, ABC):
         return bytes_container.getvalue()
     
     def extract_auc(self):
-
+        '''Выбрает наиболее опитмальный threshold для модели обучения'''
         auc_results = {}
         f1_arr = []
         for a in range(40, 90):
@@ -91,8 +98,8 @@ class ClassificatorLearning(LearningObject, ABC):
         f1 = max(f1_arr)
         self.f1 = f1
         auc = auc_results[f1]
-        self.threshold = auc
+        self.threshold = auc    
     
-    
-    def add_score_data(self, dct: dict):
-        dct[self.model_name] = self.f1
+    def add_score_data(self, best_model_container: BestModelContainer):
+        '''Добавляет данные о собственной ошибке в список лучших моделей'''
+        best_model_container[self.f1] = self.model_name

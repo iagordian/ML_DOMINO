@@ -1,5 +1,5 @@
 
-from typing import List
+from typing import List, Callable
 import numpy as np
 import pandas as pd
 from copy import copy
@@ -27,10 +27,12 @@ def get_order_marks_array(data: List[float]) -> List[float]:
     return [entrope, entrope_secondary, entrope_ternary, clear_ordered,
             secondary_ordered, ternary_ordered, order_degree, binary_order_degree]
 
-def get_entrope_order_combine(data):
-  return get_order_mark(data) ** get_entrope(data)
+def get_entrope_order_combine(data: List[int]) -> float:
+  '''Возвращает произведения энтропии для ряда и степени его упорядоченности'''
+  return get_order_mark(data) * get_entrope(data)
 
 def get_domino_order_marks_array(first: List[float], second: List[float], mark_array: bool=False) -> List[float]:
+    '''Возвращает массив оценок уопорядоченности для рядов домино'''
 
     if mark_array:
         first = get_order_marks_array(first)
@@ -42,7 +44,8 @@ def get_domino_order_marks_array(first: List[float], second: List[float], mark_a
     return ordered_marks_array
 
 
-def process_order_vars(data, process_func):
+def process_order_vars(data: List[int], process_func: Callable):
+  '''Возвращает данные об упорядоченности ряда для обработки моделью'''
 
   order_vars_data = np.zeros((data.shape[0], 7))
 
@@ -61,13 +64,14 @@ def process_order_vars(data, process_func):
 
   return order_vars_data
 
-def process_order_vars_full(data, *process_funcs):
+def process_order_vars_full(data: List[int], *process_funcs: Callable) -> np.ndarray:
+  '''Возвращает данные об упорядоченности ряда на основании нескольких функций'''
   return np.concatenate([
       process_order_vars(data, process_func) for process_func in process_funcs
   ], axis=1)
 
 def is_standart(data: List[int]) -> bool:
-      
+   '''Проверяет, подходит ли переданный ряд под стандартные паттерны'''      
    return any([
       is_bidirectional_balanced(data, full_array=False),
       is_stepped_balanced(data, full_array=False),

@@ -20,23 +20,26 @@ class DominoClassificator(Model):
 
     @classmethod
     def open(cls):
+        '''Открывает файл с лучшей моделью классификатора'''
         best_model = get_best_classifier_model()
         return super().open(best_model)
 
-    def order_check(self, domino: Domino):
+    def order_check(self, domino: Domino) -> bool:
         '''Проверяет принадлежность переданного домино к упорядоченным'''
-        ordered_marks_array = np.array([get_domino_order_marks_array(domino.first, domino.second, mark_array=True)])
+        ordered_marks_array = np.array([get_domino_order_marks_array(domino.up, domino.down, mark_array=True)])
         ordered_marks_array = self.scaler.transform(ordered_marks_array)
 
         return self.predict(ordered_marks_array) > self.threshold
 
     def open_scaler(self):
+        '''Открывает объект StandardScaler'''
         ml_scheme = get_ml_learned('StandardScaler')
         bytes_container = ml_scheme.model_obj
         scaler_obj = joblib.load(io.BytesIO(bytes_container))
         self.scaler = scaler_obj
 
     def predict(self, ordered_marks_array: List[float]):
+        '''Предсказание модели классификатора'''
 
         if hasattr(self.model, 'predict_proba'):
             return self.model.predict_proba(ordered_marks_array)[:, 1]

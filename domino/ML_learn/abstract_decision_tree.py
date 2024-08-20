@@ -23,12 +23,13 @@ class DescisionTreeLearning(LearningObject, ABC):
         self.test_target = test_data[5]
 
     def extract_order_vars(self):
-
+        '''Преобразует базовые данные о наборах к анализируемым данным'''
 
         self.train_data = process_order_vars_full(self.train_data_base, *self.process_domino_funcs)
         self.test_data = process_order_vars_full(self.test_data_base, *self.process_domino_funcs)
 
     def to_log(self):
+        '''Сохраняет данные о собственной точности в лог'''
 
         predicted = self.model_obj.predict(self.test_data)
         accuracy = accuracy_score(predicted, self.test_target)

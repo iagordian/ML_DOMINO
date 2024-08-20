@@ -13,7 +13,8 @@ class DominoLinearClassificatorCreator(ClassificatorLearning):
     model_obj_type = LinearRegression
     threshold = 0.5
 
-    def predict(self, data):
+    def predict(self, data) -> bool:
+        '''Предсказание модели'''
         return self.model_obj.predict(data) > self.threshold
 
 

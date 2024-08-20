@@ -1,23 +1,15 @@
 from sqlalchemy import MetaData, create_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session
 
 from config import SQLALCHEMY_DATABASE_URL
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-def get_db():
+def get_db() -> Session:
     '''Создание объекта сессии'''
     db = SessionLocal()
     return db
-
-def get_connect():
-    '''Создание соединения'''
-
-    connect = engine.connect()
-    return connect
-
-
 
 class Base(DeclarativeBase):
     metadata = MetaData(naming_convention={

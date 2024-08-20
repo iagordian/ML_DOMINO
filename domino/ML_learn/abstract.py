@@ -4,6 +4,7 @@ from schemas import ML_Object
 from abc import ABC
 import io
 import joblib
+from typing import ByteString
 
 class LearningObject(ABC):
     model_obj_type = None
@@ -18,7 +19,7 @@ class LearningObject(ABC):
         }
 
     @property
-    def data(self):
+    def data(self) -> ML_Object:
         return ML_Object(
             model_name=self.model_name,
             model_obj=self.to_bytes(),
@@ -27,10 +28,11 @@ class LearningObject(ABC):
         )
 
     def fit(self):
+        '''Обучение модели'''
         self.model_obj.fit(self.train_data, self.train_target)
 
-    def to_bytes(self):
-        '''Сохранение модели в файл'''
+    def to_bytes(self) -> ByteString:
+        '''Сохранение модели в байтовую строку'''
         
         bytes_container = io.BytesIO()
         joblib.dump(self.model_obj, bytes_container)

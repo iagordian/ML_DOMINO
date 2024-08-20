@@ -6,7 +6,9 @@ from .base import get_db
 from loger import connect_log, db_exception_log, \
     success_db_operation_log
 
-def db_select(func):
+from typing import Callable
+
+def db_select(func: Callable) -> Callable:
     """
     Декоратор чтения данных из ДБ    
     Сгоздает объект сессии и передает в функцию в качестве аргумента
@@ -37,7 +39,7 @@ def db_select(func):
     return wrapper
 
 
-def db_transaction(func):
+def db_transaction(func: Callable) -> Callable:
     """
     Декоратор для взаимодействия с ДБ
     Попытка выполнить функцию-запрос к БД

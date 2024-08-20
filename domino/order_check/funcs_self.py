@@ -1,8 +1,8 @@
 
-from typing import List
+from typing import List, Optional
 import numpy as np
 
-def get_order_mark(data: List[int]) -> float:
+def get_order_mark(data: List[int]) -> int:
     '''Возвращает оценку для упорядоченности переданной последовательности'''
 
     ordered = [
@@ -79,26 +79,9 @@ def balanced_mark(data: List[int]) -> bool:
   return len(set([np.sum(data == el) for el in np.unique(data)]))
 
 
-def relations_is_balanced(data: List[int]) -> bool:
-  '''Проверяет состояние сбалансированности разницы между числами в ряду'''
-  return len(set([
-      el - data[i] for i, el in enumerate(data[1:]) if el != data[i]
-  ])) in [1, 0]
 
-def is_middle_equal(data: List[int]) -> bool:
-    return data[-1] == data[2] and data[1] == data[4] and data[0] == data[3]
-
-def is_thernary_equal(data: List[int]) -> bool:
-    return data[-1] == data[3] and data[3] == data[1] and data[0] == data[2] and data[2] == data[4]
-
-def binary_relations_is_balanced(data: List[int]) -> bool:
-    return all([
-        relations_is_balanced(data[:3]),
-        relations_is_balanced(data[3:])
-    ])
-
-def is_bidirectional_balanced(data, full_array=True):
-  
+def is_bidirectional_balanced(data, full_array=True) -> bool:
+    '''Проверяет прямую упорядоченность массива между двумя его частями'''  
     conditions = [
         data[2] == data[3],
         data[1] == data[4],
@@ -108,7 +91,8 @@ def is_bidirectional_balanced(data, full_array=True):
 
     return all(conditions)
 
-def is_stepped_balanced(data, full_array=True):
+def is_stepped_balanced(data, full_array=True) -> bool:
+    '''Проверяет упорядоченность массива между четными/нечетными элементами'''
 
     conditions = [
         data[5] - data[3] == data[3] - data[1],
@@ -119,8 +103,8 @@ def is_stepped_balanced(data, full_array=True):
     return all(conditions)
 
 
-def is_pair_steped_balanced(data, full_array=True):
-
+def is_pair_steped_balanced(data, full_array: Optional[bool]=True) -> bool:
+    '''Проверяет прямую упорядоченность массива между двумя его частями'''
     conditions = [
         data[0] - data[3] == data[1] - data[4],
     ]
