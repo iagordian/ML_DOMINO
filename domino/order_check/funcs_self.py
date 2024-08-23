@@ -17,7 +17,7 @@ def get_order_mark(data: List[int]) -> int:
             cnt_cos(data)
         ]
 
-    return max(ordered)
+    return max(ordered) / len(data)
 
 def get_binary_order_mark(data: List[int]) -> float:
     '''Возвращает среднюю оценку упорядоченности между двумя половинами массива'''
@@ -83,11 +83,11 @@ def balanced_mark(data: List[int]) -> bool:
 def is_bidirectional_balanced(data, full_array=True) -> bool:
     '''Проверяет прямую упорядоченность массива между двумя его частями'''  
     conditions = [
-        data[2] == data[3],
-        data[1] == data[4],
+        data[-3] == data[-4],
+        data[-2] == data[-5],
     ]
     if full_array:
-        conditions.append(data[0] == data[5])
+        conditions.append(data[-1] == data[-6])
 
     return all(conditions)
 
@@ -95,10 +95,10 @@ def is_stepped_balanced(data, full_array=True) -> bool:
     '''Проверяет упорядоченность массива между четными/нечетными элементами'''
 
     conditions = [
-        data[5] - data[3] == data[3] - data[1],
+        data[-2] - data[-4] == data[-4] - data[-6],
     ]
     if full_array:
-        conditions.append(data[4] - data[2] == data[2] - data[0])
+        conditions.append(data[-1] - data[-3] == data[-3] - data[-5])
 
     return all(conditions)
 
@@ -106,9 +106,9 @@ def is_stepped_balanced(data, full_array=True) -> bool:
 def is_pair_steped_balanced(data, full_array: Optional[bool]=True) -> bool:
     '''Проверяет прямую упорядоченность массива между двумя его частями'''
     conditions = [
-        data[0] - data[3] == data[1] - data[4],
+        data[-2] - data[-5] == data[-3] - data[-6],
     ]
     if full_array:
-        conditions.append(data[1] - data[4] == data[2] - data[5])
+        conditions.append(data[-1] - data[-4] == data[-2] - data[-5])
 
     return all(conditions)

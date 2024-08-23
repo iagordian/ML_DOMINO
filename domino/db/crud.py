@@ -2,9 +2,9 @@
 from sqlalchemy.orm import Session
 from typing import List, ByteString
 
-from schemas import Picture as Picture, ML_Object
-from models import Picture as Picture_obj, ML_Object as ML_SQL
-from db import db_transaction, db_select
+from domino.schemas import Picture as Picture, ML_Object, ML_Objects_List
+from domino.models import Picture as Picture_obj, ML_Object as ML_SQL
+from domino.db import db_transaction, db_select
 
 @db_transaction
 def save_picture(picture: Picture, db: Session):
@@ -58,3 +58,18 @@ def get_img_bytes(up: int, down: int, db: Session) -> ByteString:
         up=up, down=down
     ).first()
     return img[0]
+
+@db_select
+def get_all_models_data(db: Session) -> ML_Objects_List:
+    '''Возвращает описание всех моделей ML (все данные, кроме самой модели)'''
+
+    models=[
+        ML_Object.from_orm(model) for model in db.query(ML_SQL)
+    ]
+    for model in models:
+        model.model_obj = model.model_obj is not None
+
+    models = ML_Objects_List(
+        models=models
+    )
+    return models

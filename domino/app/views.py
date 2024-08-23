@@ -3,10 +3,10 @@ from fastapi import Request
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from .app import app, templates
-from schemas import Domino, PictureAnswer
-from db import get_all_pictures, get_empty_picture, get_all_ML_logs, \
+from domino.schemas import Domino, PictureAnswer
+from domino.db import get_all_pictures, get_empty_picture, get_all_ML_logs, \
     get_img_bytes
-from ML import DominoClassificator, DominoDecisionTree
+from domino.ML import DominoClassificator, DominoDecisionTree
 import json
 import io
 
@@ -38,7 +38,7 @@ async def order_check(domino: Domino):
 @app.post('/predict')
 async def predict(domino: Domino):
 
-    predicted_up, predicted_down = DominoDecisionTree.open().predict(domino)
+    predicted_up, predicted_down, is_sure = DominoDecisionTree.open().predict(domino)
     img_bytes = get_img_bytes(predicted_up, predicted_down)
 
     picture_answer = PictureAnswer(

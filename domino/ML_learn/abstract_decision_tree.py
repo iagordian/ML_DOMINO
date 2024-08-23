@@ -1,7 +1,7 @@
 
 
 from .abstract import LearningObject
-from order_check import process_order_vars_full
+from domino.order_check import process_order_vars_full
 
 from abc import ABC
 import pandas as pd

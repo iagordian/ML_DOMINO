@@ -1,10 +1,10 @@
 
 from .abstract_decision_tree import DescisionTreeLearning
-from order_check import balanced_mark, get_order_mark, \
+from domino.order_check import balanced_mark, get_order_mark, \
     get_entrope_order_combine, is_bidirectional_balanced, \
     is_stepped_balanced, is_pair_steped_balanced
-from entrope import get_secondary_growth_entrope_full
-from config import RANDOM_SEED
+from domino.entrope import get_secondary_growth_entrope_full
+from domino.config import RANDOM_SEED
 
 import pandas as pd
 import numpy as np

@@ -1,6 +1,9 @@
 
 from .abstract import LearningObject
-from schemas import ML_Object
+from domino.schemas import ML_Object
+from domino.best_model_container import BestModelContainer
+from domino.config import DATA_PACKAGES_DIR
+from domino.files_navigation import join_file_path
 
 from abc import ABC
 import pandas as pd
@@ -10,7 +13,7 @@ import joblib
 import io
 import numpy as np
 from typing import Optional, ByteString
-from best_model_container import BestModelContainer
+
 
 class ClassificatorLearning(LearningObject, ABC):
 
@@ -34,8 +37,14 @@ class ClassificatorLearning(LearningObject, ABC):
             model_name='StandardScaler',
             model_obj=self.scaler_to_bytes()
         )
-      
     
+    def save_scaler(self):
+        '''Сохранение Scaler  в файле'''
+        model_name='StandardScaler_bytes'
+        model_name = join_file_path(DATA_PACKAGES_DIR, model_name)
+        model_obj=self.scaler_to_bytes()
+        self.save_file(model_name, model_obj)
+          
     def predict(self, data: np.ndarray, alpha: Optional[int]=None) -> bool:
         '''Возвращает предсказание объекта классификатора'''
         if alpha is None:

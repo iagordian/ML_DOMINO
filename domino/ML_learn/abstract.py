@@ -1,10 +1,12 @@
 
-from schemas import ML_Object
+from domino.schemas import ML_Object
+from domino.config import DATA_PACKAGES_DIR
+from domino.files_navigation import join_file_path
 
 from abc import ABC
 import io
 import joblib
-from typing import ByteString
+from typing import ByteString, Optional
 
 class LearningObject(ABC):
     model_obj_type = None
@@ -39,6 +41,18 @@ class LearningObject(ABC):
         bytes_container.seek(0)
 
         return bytes_container.getvalue()
+    
+    def save_file(self, filename: Optional[str] = None, bytes_container: Optional[ByteString] = None):
+        '''Сохранение модели в файл'''
+
+        if filename is None:
+            filename = join_file_path(DATA_PACKAGES_DIR, f'{self.model_name}_bytes')
+
+        if bytes_container is None:
+            bytes_container = self.to_bytes()
+
+        with open(filename, 'wb') as file:
+            file.write(bytes_container)
     
     
 

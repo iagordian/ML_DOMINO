@@ -1,7 +1,7 @@
 
 import json
 
-from config.config import DATA_PACKAGES_DIR, UPLOAD_LOG_DIR
+from domino.config.config import DATA_PACKAGES_DIR, UPLOAD_LOG_DIR
 
 class Uploader:
 

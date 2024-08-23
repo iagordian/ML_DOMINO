@@ -3,7 +3,8 @@
 
 from functools import wraps
 from .base import get_db
-from loger import connect_log, db_exception_log, \
+
+from domino.loger import connect_log, db_exception_log, \
     success_db_operation_log
 
 from typing import Callable

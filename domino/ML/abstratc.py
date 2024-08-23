@@ -4,8 +4,8 @@ import joblib
 import io
 from typing import Optional
 
-from db import get_ml_learned
-from schemas import ML_Object
+from domino.db import get_ml_learned
+from domino.schemas import ML_Object
 
 class Model(ABC):
 

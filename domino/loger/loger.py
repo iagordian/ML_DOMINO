@@ -1,5 +1,5 @@
 
-from config import LOG_FILE
+from domino.config import LOG_FILE
 
 import logging
 import logging.handlers

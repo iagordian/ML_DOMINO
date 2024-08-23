@@ -5,6 +5,7 @@ body {
     overflow-y: hidden;
     overflow-x: hidden;
     max-height: 100%;
+    font-size: 1.4vh;
 }
 
 *, *::after, *::before {
@@ -54,7 +55,26 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
+    z-index: 5;    
+}
+
+#side_menu{
+    position: absolute;
+    left: 0;
+    top: 8vh;
+    width: 12vw;
+    height: 16vh;
+    background: #bab1a6;
+    border-bottom: 5px solid black;
+    border-right: 5px solid black;
+    border-bottom-right-radius: 30px;
+    padding-top: 2vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 3;
 }
 
 #rigth_menu_body{
@@ -102,7 +122,7 @@ body {
     margin-right: 20px;
     overflow-x: auto;
     grid-gap: 8vw;
-    padding: 20px;
+    padding: 30px;
 }
 
 #play_area::-webkit-scrollbar{
@@ -125,6 +145,7 @@ body {
 #table{
     min-width: 70%;
     max-width: 70%;
+    padding: 2.5vw;
     background: #fff5ee;
     outline: 3px solid black;
     margin-top: 50px;
@@ -132,7 +153,9 @@ body {
     border-radius: 30px;
     display: flex;
     align-items: center;
-    
+    justify-content: center;
+    flex-direction: column;
+    grid-gap: 6vh;
 }
 
 .domino_pic{
@@ -145,8 +168,9 @@ body {
 .empty{
     cursor: pointer;
     position: relative;
-    width: 3.5vw;
-    height: 14vh
+    min-width: 3.5vw;
+    height: 14vh;
+    outline: none;
 }
 
 .ordered_true{
@@ -191,6 +215,7 @@ body {
 	margin-right: 0;
 	line-height: 18px;
 	user-select: none;
+    font-style: italic;
 }
 
 .radio_container label:before {
@@ -222,7 +247,8 @@ body {
 #logs_target a{
     cursor: pointer;
     color: black;
-    text-decoration: none
+    text-decoration: none;
+    font-style: italic;
 }
 
 
@@ -232,4 +258,64 @@ body {
     top: 0px;
     left: 50vw;
     display: flex;
+}
+
+#expected_size_input_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 1vw;
+}
+
+#expected_size_input_container label{
+    display: inline-block;
+	position: relative;
+	line-height: 18px;
+	user-select: none;
+    font-style: italic;
+    padding: 0.5vh;
+}
+
+#expected_size_input{
+    font-size: 1.4vh;
+    width: 5vw;
+    padding: 0.5vh;
+    border-radius: 5px;
+    background: #F5D7BF;
+    text-align: center;
+}
+
+#expected_size_settings{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 3vh;
+    grid-gap: 1vh;
+}
+
+#add_max_size_btn{
+    padding: 0.5vh;
+    font-style: italic;
+    border-radius: 5px;
+    background: #F5D7BF;
+    cursor: pointer;
+    font-size: 1.4vh;
+    width: 5vw;
+}
+
+#add_max_size_btn:hover{
+    background: #E39250;
+}
+
+#add_max_size_btn:active{
+    background: radial-gradient(#E39250, #e59c61, #E39250);
+}
+
+.has_error{
+    border: 2px solid red;
+}
+
+#empty_picture_src{
+    display: none;
 }

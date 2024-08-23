@@ -1,5 +1,5 @@
 
-from db import Base
+from domino.db import Base
 
 from sqlalchemy import UUID, Integer, TEXT
 from sqlalchemy.orm import mapped_column, Mapped

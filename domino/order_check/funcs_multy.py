@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from copy import copy
 
-from entrope import get_entrope, get_ternary_growth_entrope, get_secondary_growth_entrope
+from domino.entrope import get_entrope, get_ternary_growth_entrope, get_secondary_growth_entrope
 from .funcs_self import get_order_mark, get_binary_order_mark, get_ternary_order_mark, \
     get_secondary_order_mark, get_clear_order_mark, is_bidirectional_balanced, \
     is_stepped_balanced, is_pair_steped_balanced
@@ -13,6 +13,9 @@ from .funcs_self import get_order_mark, get_binary_order_mark, get_ternary_order
 def get_order_marks_array(data: List[float]) -> List[float]:
     '''Возвращает массив оценок упорядоченности для массива'''
 
+    if isinstance(data, pd.Series):
+       data = list(data)
+       
     entrope = get_entrope(data)
     entrope_secondary = get_secondary_growth_entrope(entrope, data)
     entrope_ternary = get_ternary_growth_entrope(entrope, data)
@@ -44,7 +47,7 @@ def get_domino_order_marks_array(first: List[float], second: List[float], mark_a
     return ordered_marks_array
 
 
-def process_order_vars(data: List[int], process_func: Callable):
+def process_order_vars(data: List[int], process_func: Callable) -> np.ndarray:
   '''Возвращает данные об упорядоченности ряда для обработки моделью'''
 
   order_vars_data = np.zeros((data.shape[0], 7))

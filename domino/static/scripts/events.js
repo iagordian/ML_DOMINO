@@ -7,8 +7,10 @@ var main = (function () {
         $('#main').on('click.main', '.domino_pic', add_domino)
         $('#main').on('click.main', '#clean', clear_table)
         $('#main').on('click.main', '#domino_rollback', domino_rollback)
-        $('#main').on('click.main', '#analize_radio', switch_to_analize)
-        $('#main').on('click.main', '#predict_radio', switch_to_predict)
+        $('#main').on('click.main', '#analize_radio', switch_mode)
+        $('#main').on('click.main', '#predict_radio', switch_mode)
+        $('#main').on('click.main', '#add_max_size_btn', change_max_size)
+        $('#main').on('keypress.main', change_max_size_by_btn)
     }
 
     // Инициализация приложения

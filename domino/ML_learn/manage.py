@@ -3,7 +3,7 @@ from typing import List
 import numpy as np
 import pandas as pd
 
-from order_check import get_order_marks_array, get_domino_order_marks_array
+from domino.order_check import get_order_marks_array, get_domino_order_marks_array
 
 def extract_ordered_marks(arrays: pd.DataFrame, is_callable: bool = False) -> List[List[float]]:
         '''
@@ -13,12 +13,6 @@ def extract_ordered_marks(arrays: pd.DataFrame, is_callable: bool = False) -> Li
         rows = []
 
         for i, row in arrays.iterrows():
-
-            if is_callable:
-                row = row[0]()
-            else:
-                row = list(row)
-
             rows.append(get_order_marks_array(row))
 
         return rows

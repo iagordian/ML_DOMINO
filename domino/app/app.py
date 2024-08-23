@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from typing import Callable
-from loger import url_query_log, server_error_log
+from domino.loger import url_query_log, server_error_log
 
 templates = Jinja2Templates(directory='domino/templates')
 

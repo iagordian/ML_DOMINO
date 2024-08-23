@@ -37,7 +37,7 @@ class OrderedArray(DominoArray):
 
   def __init__(self, *funcs: OrderedDominoCreater):
 
-    self.data = pd.DataFrame(funcs)
+    self.data = pd.DataFrame([f() for f in funcs])
     self.check_unitue(funcs)
 
   def check_unitue(self, funcs):
@@ -49,16 +49,16 @@ class OrderedArray(DominoArray):
     for i, func in enumerate(funcs, start=1):
       line = func()
       try:
-        assert line not in unique
-        assert line[:-1] not in task_unique
+        assert list(line) not in unique
+        assert list(line)[:-1] not in task_unique
         assert min(line) >= 0
         assert max(line) <= 6
       except Exception as e:
         print(line)
         print(i)
         raise e
-      unique.append(line)
-      task_unique.append(line[:-1])
+      unique.append(list(line))
+      task_unique.append(list(line)[:-1])
 
 
   def try_func(self, func: Callable) -> bool:

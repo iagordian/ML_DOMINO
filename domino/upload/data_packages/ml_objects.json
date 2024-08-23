@@ -1,0 +1,220 @@
+{
+   "models": [
+      {
+         "model_name": "SampleGenerator",
+         "model_obj": false,
+         "logs": {
+            "model_name": "SampleGenerator",
+            "sample_size_of_length_6": 253,
+            "sample_size_of_length_7": 107,
+            "sample_size_of_length_9": 100,
+            "sample_size_of_length_10": 101,
+            "sample_size_of_length_11": 103,
+            "sample_size_of_length_12": 103,
+            "sample_size_of_length_15": 100,
+            "sample_size_of_length_18": 100
+         },
+         "is_the_best_classifier_model": 0
+      },
+      {
+         "model_name": "LinearRegression",
+         "model_obj": true,
+         "threshold": 0.5,
+         "logs": {
+            "model_name": "LinearRegression",
+            "AUC": 0.5,
+            "intercept_": 0.1779996996279702,
+            "coef_": [
+               -0.12440202221039308,
+               -0.006020426231402379,
+               -0.013994573826186928,
+               -0.030331682595338826,
+               0.07352205413668317,
+               0.06171271397699031,
+               -0.034687562304485504,
+               0.03768639099487442,
+               -0.12440202221040302,
+               -0.006020426231402472,
+               -0.013994573826186215,
+               -0.030331682595341334,
+               0.07352205413668268,
+               0.06171271397699019,
+               -0.03468756230448541,
+               0.037686390994877084,
+               -0.00028840973685111295,
+               -0.007509112448829529,
+               0.04837524046792473,
+               0.011714681990328107,
+               6.535371166864826e-06,
+               -0.016350122930382405,
+               0.019448631086172,
+               0.030004032962420425
+            ],
+            "col_names": {
+               "entrope": -0.12440202221039308,
+               "entrope_secondary": -0.006020426231402379,
+               "entrope_ternary": -0.013994573826186928,
+               "clear_ordered": -0.030331682595338826,
+               "secondary_ordered": 0.07352205413668317,
+               "ternary_ordered": 0.06171271397699031,
+               "order_degree": -0.034687562304485504,
+               "binary_order_degree": 0.03768639099487442
+            },
+            "precision": 0.9897326617590081,
+            "recall": 0.8845221606648199,
+            "accuracy": 0.9758397369215798,
+            "f1": 0.9758397369215798
+         },
+         "is_the_best_classifier_model": 0
+      },
+      {
+         "model_name": "StandardScaler",
+         "model_obj": true,
+         "is_the_best_classifier_model": 0
+      },
+      {
+         "model_name": "LogisticRegression",
+         "model_obj": true,
+         "threshold": 0.51,
+         "logs": {
+            "model_name": "LogisticRegression",
+            "C": 0.5,
+            "dual": false,
+            "l1_ratio": 0.1,
+            "penalty": "l2",
+            "AUC": 0.51,
+            "intercept_": -7.526937588253045,
+            "coef_": [
+               -3.217140729463648,
+               -1.577737655894287,
+               0.724620777839736,
+               0.6292433099090634,
+               1.4708758218065763,
+               1.7493639879179528,
+               -0.7492165732422575,
+               0.7943572105923719,
+               -3.2171407294639063,
+               -1.5777376558943288,
+               0.7246207778397319,
+               0.6292433099090232,
+               1.4708758218065483,
+               1.7493639879179406,
+               -0.749216573242279,
+               0.7943572105924194,
+               0.9740266836374492,
+               1.1381579971810754,
+               0.12199433872558006,
+               0.873361347435924,
+               -0.10119062600165309,
+               -0.17849323601725825,
+               -0.0946166345090032,
+               0.3750402250901478
+            ],
+            "col_names": {
+               "entrope": -3.217140729463648,
+               "entrope_secondary": -1.577737655894287,
+               "entrope_ternary": 0.724620777839736,
+               "clear_ordered": 0.6292433099090634,
+               "secondary_ordered": 1.4708758218065763,
+               "ternary_ordered": 1.7493639879179528,
+               "order_degree": -0.7492165732422575,
+               "binary_order_degree": 0.7943572105923719
+            },
+            "precision": 0.9911176905995559,
+            "recall": 0.9272853185595568,
+            "accuracy": 0.9842958289990269,
+            "f1": 0.9842958289990269
+         },
+         "is_the_best_classifier_model": 0
+      },
+      {
+         "model_name": "SGDClassifier",
+         "model_obj": true,
+         "threshold": 0.41,
+         "logs": {
+            "model_name": "SGDClassifier",
+            "loss": "modified_huber",
+            "penalty": null,
+            "n_jobs": 1,
+            "AUC": 0.41,
+            "intercept_": -192.08640719784768,
+            "coef_": [
+               -100.7156859380384,
+               -52.60754781015855,
+               51.0278618564052,
+               16.8661658048485,
+               28.80979790806202,
+               36.840862174091264,
+               -0.6495541613753079,
+               27.459343226595237,
+               -100.73741873234064,
+               -52.61035940853465,
+               51.04984737082338,
+               16.866165804846755,
+               28.804627585645687,
+               36.82775528863461,
+               -0.6342698518823251,
+               27.448239305669482,
+               23.22093175580854,
+               35.13345924243377,
+               -6.10562779508605,
+               23.460295400123453,
+               -0.3761776625795872,
+               -11.649665057850093,
+               -0.13642002026778854,
+               13.458758537160799
+            ],
+            "col_names": {
+               "entrope": -100.7156859380384,
+               "entrope_secondary": -52.60754781015855,
+               "entrope_ternary": 51.0278618564052,
+               "clear_ordered": 16.8661658048485,
+               "secondary_ordered": 28.80979790806202,
+               "ternary_ordered": 36.840862174091264,
+               "order_degree": -0.6495541613753079,
+               "binary_order_degree": 27.459343226595237
+            },
+            "precision": 0.9884931506849315,
+            "recall": 0.9369806094182825,
+            "accuracy": 0.9856716217576591,
+            "f1": 0.9856716217576591,
+            "is_the_best_classifier_model": true
+         },
+         "is_the_best_classifier_model": 1
+      },
+      {
+         "model_name": "RandomForestClassifier",
+         "model_obj": true,
+         "logs": {
+            "model_name": "RandomForestClassifier",
+            "n_estimators": 64,
+            "max_depth": 16,
+            "min_samples_split": 4,
+            "random_state": 42,
+            "accuracy": 0.7894736842105263
+         },
+         "is_the_best_classifier_model": 0
+      },
+      {
+         "model_name": "DecisionTreeClassifier",
+         "model_obj": true,
+         "logs": {
+            "model_name": "DecisionTreeClassifier",
+            "max_depth": 32,
+            "min_samples_split": 4,
+            "random_state": 42,
+            "accuracy": 0.9868421052631579
+         },
+         "is_the_best_classifier_model": 0
+      },
+      {
+         "model_name": "ComplexDecisionTreeModel",
+         "model_obj": false,
+         "logs": {
+            "model_name": "ComplexDecisionTreeModel",
+            "accuracy": 1.0
+         },
+         "is_the_best_classifier_model": 0
+      }
+   ]
+}

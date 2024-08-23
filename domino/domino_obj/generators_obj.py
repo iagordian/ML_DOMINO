@@ -1,30 +1,31 @@
 
 import random
-import uuid
-from typing import List, Callable
 
-class DominoCreater:
+from .generator_obj_abs import OrderedDominoCreater, DominoCreater
 
-    def __init__(self):
-        self.uid = uuid.uuid4()
+class SixOrderedDominoCreater(OrderedDominoCreater):
+    pass
+    
+class SevenOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 7
 
-    def __repr__(self):
-        return f'{self.uid}: {", ".join(map(str, self()))}'
+class NineOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 9
 
-    def __call__(self) -> List[int]:
-        '''Генерирует линию домино'''
-        return [self.func(n) for n in range(6)]
+class TenOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 10
 
-class OrderedDominoCreater(DominoCreater):
+class ElevenOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 11
 
-    '''
-    При инициализации экземпляра принимает функцию
-    для генерации упорядоченного ряда
-    '''
+class TwelveOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 12
 
-    def __init__(self, func: Callable):
-        self.func = func
-        super().__init__()
+class FifteenOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 15
+
+class EighteenOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 18
 
 class RandomDominoCreater(DominoCreater):
 
