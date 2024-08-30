@@ -10,7 +10,10 @@ var main = (function () {
         $('#main').on('click.main', '#analize_radio', switch_mode)
         $('#main').on('click.main', '#predict_radio', switch_mode)
         $('#main').on('click.main', '#add_max_size_btn', change_max_size)
-        $('#main').on('keypress.main', change_max_size_by_btn)
+
+        $(document).keyup(function(e) {
+          key_board_funcks(e)
+        })
     }
 
     // Инициализация приложения

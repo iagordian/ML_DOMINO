@@ -214,10 +214,20 @@ function get_actual_size_domino_array() {
     return $('.empty').length
 }
 
-function change_max_size_by_btn(e) {
+
+
+function key_board_funcks(e) {
     if (e.which === 13) {
         change_max_size()
     }
+    if (e.which === 8) {
+        clear_size_input()
+    }
+}
+
+function clear_size_input() {
+    $('#expected_size_input').val('')
+    $('#expected_size_input').focus()
 }
 
 
@@ -314,8 +324,6 @@ function get_empty_picture_src() {
 }
 
 function get_scrollbar_pos(elem_num) {
-
-    console.log(elem_num, 'elem_num', get_stack_max_size())
 
     if (elem_num < 6) {
         return 0
