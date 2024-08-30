@@ -3,6 +3,7 @@ FROM python:3.10-slim
 
 COPY . .
 
+RUN pip install dotenv
 RUN pip install --upgrade pip
 RUN pip install -r requarements.txt
 RUN pip install uvicorn==0.20.0
