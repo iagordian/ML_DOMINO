@@ -7,7 +7,7 @@ from domino.order_check import balanced_mark, get_order_mark, \
     is_stepped_balanced, is_pair_steped_balanced, is_standart, \
     process_order_vars_full
 from domino.entrope import get_secondary_growth_entrope_full
-from domino.db import get_ml_learned
+from domino.db import get_ml_learned, get_threshold
 
 import io
 import joblib
@@ -57,6 +57,7 @@ class DominoDecisionTree(Model):
     def predict(self, domino: Domino, upgrade: Optional[bool] = True) -> int:
         '''Предсказывает недостающее число в ряду'''
         up_data, down_data = domino.data
+        self.forest_model_threshold = get_threshold(domino.size)
         up_data = self.update_input_data(up_data, upgrade=upgrade)
         down_data = self.update_input_data(down_data, upgrade=upgrade)
         up_predicted, up_sure = self.get_prediction(up_data)

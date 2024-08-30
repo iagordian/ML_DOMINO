@@ -4,8 +4,11 @@
 run:
 	poetry run uvicorn domino.app:app --reload --port=5000
 
-recreate_db:
+db_recreate_and_upload:
 	poetry run python3 -m domino.upload.create_db
+
+recreate_db:
+	poetry run python3 -m domino.upload.create_tables
 
 create_classificators:
 	poetry run python3 -m domino.create_linear_classificators

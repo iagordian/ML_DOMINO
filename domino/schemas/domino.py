@@ -18,3 +18,7 @@ class Domino(Model):
     @property
     def data(self):
         return self.up, self.down
+    
+    @property
+    def size(self):
+        return len(self.up)

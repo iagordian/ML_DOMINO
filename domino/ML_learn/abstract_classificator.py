@@ -4,6 +4,7 @@ from domino.schemas import ML_Object
 from domino.best_model_container import BestModelContainer
 from domino.config import DATA_PACKAGES_DIR
 from domino.files_navigation import join_file_path
+from domino.best_model_container import BestThresholdContainer
 
 from abc import ABC
 import pandas as pd
@@ -96,18 +97,15 @@ class ClassificatorLearning(LearningObject, ABC):
     
     def extract_auc(self):
         '''Выбрает наиболее опитмальный threshold для модели обучения'''
-        auc_results = {}
-        f1_arr = []
+
+        best_auc_container = BestThresholdContainer()
+
         for a in range(40, 90):
             target_pred = (self.predict(self.test_data, (a / 100))).astype('int').transpose()
             f1 = f1_score(self.test_target, target_pred, average='micro')
-            auc_results[f1] = a / 100
-            f1_arr.append(f1)
+            best_auc_container[f1] = a / 100
 
-        f1 = max(f1_arr)
-        self.f1 = f1
-        auc = auc_results[f1]
-        self.threshold = auc    
+        self.threshold = best_auc_container.best_threshold
     
     def add_score_data(self, best_model_container: BestModelContainer):
         '''Добавляет данные о собственной ошибке в список лучших моделей'''

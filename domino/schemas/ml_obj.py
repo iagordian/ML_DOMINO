@@ -1,8 +1,8 @@
 
 from .base import Model
 
-from pydantic import Field, validator
-from typing import Optional, ByteString, List, AnyStr, Union
+from pydantic import Field
+from typing import Optional, ByteString, List, Union
 
 class ML_Object(Model):
 
@@ -12,6 +12,13 @@ class ML_Object(Model):
     logs: Optional[dict] = Field(None, title='Логирование процесса обучения')
     is_the_best_classifier_model: Optional[int] = Field(None, title='Флаг лучшей модели классификации')
 
-
-class ML_Objects_List(Model):
+class ML_ObjectsList(Model):
     models: List[ML_Object] = Field(title='Описание объектов ML')
+
+class ForestModelThreshold(Model):
+
+    min_size: int = Field(title='Пороговое значение для преминения порога')
+    threshold: float = Field(title='Значение порога')
+
+class ForestModelThresholdList(Model):
+    thresholdes: List[ForestModelThreshold] = Field(title='Перечень пороговых значений')

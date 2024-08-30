@@ -5,6 +5,7 @@ from domino.order_check import process_order_vars_full
 
 from abc import ABC
 import pandas as pd
+import numpy as np
 from sklearn.metrics import accuracy_score
 
 class DescisionTreeLearning(LearningObject, ABC):
@@ -25,8 +26,14 @@ class DescisionTreeLearning(LearningObject, ABC):
     def extract_order_vars(self):
         '''Преобразует базовые данные о наборах к анализируемым данным'''
 
-        self.train_data = process_order_vars_full(self.train_data_base, *self.process_domino_funcs)
-        self.test_data = process_order_vars_full(self.test_data_base, *self.process_domino_funcs)
+        self.train_data = self.process_data(self.train_data_base)
+        self.test_data = self.process_data(self.test_data_base)
+
+    def process_data(self, data: pd.DataFrame):
+        return process_order_vars_full(data, *self.process_domino_funcs)
+    
+    def get_predict(self, processed_data: np.ndarray) -> int:
+        return int(self.model_obj.predict(processed_data)[0])
 
     def to_log(self):
         '''Сохраняет данные о собственной точности в лог'''

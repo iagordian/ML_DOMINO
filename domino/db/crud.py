@@ -1,9 +1,11 @@
 
 from sqlalchemy.orm import Session
-from typing import List, ByteString
+from typing import List, ByteString, Dict
 
-from domino.schemas import Picture as Picture, ML_Object, ML_Objects_List
-from domino.models import Picture as Picture_obj, ML_Object as ML_SQL
+from domino.schemas import Picture as Picture, ML_Object, ML_ObjectsList, \
+    ForestModelThreshold, ForestModelThresholdList
+from domino.models import Picture as Picture_obj, ML_Object as ML_SQL, \
+    ForestModelThreshold as ForestModelThreshold_SQL
 from domino.db import db_transaction, db_select
 
 @db_transaction
@@ -11,6 +13,12 @@ def save_picture(picture: Picture, db: Session):
     '''Сохраняет в БД изображение домино'''
     picture = Picture_obj(**picture.model_dump(exclude_none=True))
     db.add(picture)
+
+@db_transaction
+def save_threshold(threshold: ForestModelThreshold, db: Session):
+    '''Сохраняет в БД изображение домино'''
+    threshold = ForestModelThreshold_SQL(**threshold.model_dump(exclude_none=True))
+    db.add(threshold)
 
 @db_select
 def get_all_pictures(db: Session) -> List[Picture]:
@@ -37,7 +45,7 @@ def get_ml_learned(model_name: str, db: Session) -> ML_Object:
 @db_select
 def get_all_ML_logs(db: Session) -> List[dict]:
     '''Возвращает все записи об обучении объектов ML'''
-    return [log[0] for log in db.query(ML_SQL.logs).filter(ML_SQL.logs is not None)]
+    return [log[0] for log in db.query(ML_SQL.logs) if log[0] is not None]
 
 @db_transaction
 def set_best_model(model_name: str, db: Session):
@@ -60,7 +68,7 @@ def get_img_bytes(up: int, down: int, db: Session) -> ByteString:
     return img[0]
 
 @db_select
-def get_all_models_data(db: Session) -> ML_Objects_List:
+def get_all_models_data(db: Session) -> ML_ObjectsList:
     '''Возвращает описание всех моделей ML (все данные, кроме самой модели)'''
 
     models=[
@@ -69,7 +77,42 @@ def get_all_models_data(db: Session) -> ML_Objects_List:
     for model in models:
         model.model_obj = model.model_obj is not None
 
-    models = ML_Objects_List(
+    models = ML_ObjectsList(
         models=models
     )
     return models
+
+@db_transaction
+def save_thresholdes(thresholdes: Dict[int, float], db: Session):
+    '''Сохранение словаря порогов принятия решения для дерева решений в БД'''
+    
+    for size, threshold in thresholdes.items():
+
+        threshold_obj = ForestModelThreshold(
+            min_size=size,
+            threshold=threshold
+        )
+        db.add(ForestModelThreshold_SQL(
+            **threshold_obj.model_dump()
+        ))
+
+@db_select
+def get_all_thresholdes(db: Session) -> ForestModelThresholdList:
+    '''Возвращает все объекты threshold в виде одного объекта'''
+
+    thresholdes = ForestModelThresholdList(
+        thresholdes = [{
+            'min_size': threshold.min_size,
+            'threshold': threshold.threshold
+        } for threshold in db.query(ForestModelThreshold_SQL)]
+    )
+    return thresholdes
+
+@db_select
+def get_threshold(size: int, db: Session) -> float:
+    '''Возвращает значение порога для переданной выборки'''
+    return db.query(ForestModelThreshold_SQL.threshold).filter(
+        ForestModelThreshold_SQL.min_size >= size
+    ).order_by(
+        ForestModelThreshold_SQL.min_size
+    ).first()[0]

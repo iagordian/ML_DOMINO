@@ -1,0 +1,32 @@
+{
+   "thresholdes": [
+      {
+         "min_size": 7,
+         "threshold": 0.45
+      },
+      {
+         "min_size": 9,
+         "threshold": 0.35
+      },
+      {
+         "min_size": 10,
+         "threshold": 0.35
+      },
+      {
+         "min_size": 11,
+         "threshold": 0.45
+      },
+      {
+         "min_size": 12,
+         "threshold": 0.3
+      },
+      {
+         "min_size": 15,
+         "threshold": 0.3
+      },
+      {
+         "min_size": 18,
+         "threshold": 0.3
+      }
+   ]
+}
