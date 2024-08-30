@@ -2,25 +2,32 @@
 
 
 run:
-	poetry run uvicorn domino.app:app --reload --port=5000
+	uvicorn domino.app:app --reload --port=5000
 
 db_recreate_and_upload:
-	poetry run python3 -m domino.upload.create_db
+	python3 -m domino.upload.create_db
 
 recreate_db:
-	poetry run python3 -m domino.upload.create_tables
+	python3 -m domino.upload.create_tables
 
 create_classificators:
-	poetry run python3 -m domino.create_linear_classificators
+	python3 -m domino.create_linear_classificators
 
 create_decision_trees:
-	poetry run python3 -m domino.create_decision_tree
+	python3 -m domino.create_decision_tree
 
 models_to_json:
-	poetry run python3 -m domino.save_models_to_json
+	python3 -m domino.save_models_to_json
 
 samples_size_show:
-	poetry run python3 -m domino.show_sample_size
+	python3 -m domino.show_sample_size
 
 save_sample_data:
-	poetry run python3 -m domino.save_sample_data
+	python3 -m domino.save_sample_data
+
+activate_venv:
+	source venv/bin/activate
+
+
+install_libs:
+	pip3 install -r requarements.txt
