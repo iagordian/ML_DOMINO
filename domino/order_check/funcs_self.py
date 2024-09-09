@@ -74,13 +74,13 @@ def cnt_cos(data: List[int]) -> float:
     return sum([el > data[i] if not i % 2 else el < data[i] for i, el in enumerate(data[1:])])
 
 
-def balanced_mark(data: List[int]) -> bool:
+def balanced_mark(data: np.ndarray) -> bool:
   '''Проверяет состояние сбалансированности числового ряда'''
   return len(set([np.sum(data == el) for el in np.unique(data)]))
 
 
 
-def is_bidirectional_balanced(data, full_array=True) -> bool:
+def is_bidirectional_balanced(data: np.ndarray, full_array=True) -> bool:
     '''Проверяет прямую упорядоченность массива между двумя его частями'''  
     conditions = [
         data[-3] == data[-4],
@@ -91,7 +91,7 @@ def is_bidirectional_balanced(data, full_array=True) -> bool:
 
     return all(conditions)
 
-def is_stepped_balanced(data, full_array=True) -> bool:
+def is_stepped_balanced(data: np.ndarray, full_array=True) -> bool:
     '''Проверяет упорядоченность массива между четными/нечетными элементами'''
 
     conditions = [
@@ -103,7 +103,7 @@ def is_stepped_balanced(data, full_array=True) -> bool:
     return all(conditions)
 
 
-def is_pair_steped_balanced(data, full_array: Optional[bool]=True) -> bool:
+def is_pair_steped_balanced(data: np.ndarray, full_array: Optional[bool]=True) -> bool:
     '''Проверяет прямую упорядоченность массива между двумя его частями'''
     conditions = [
         data[-2] - data[-5] == data[-3] - data[-6],
@@ -112,3 +112,12 @@ def is_pair_steped_balanced(data, full_array: Optional[bool]=True) -> bool:
         conditions.append(data[-1] - data[-4] == data[-2] - data[-5])
 
     return all(conditions)
+
+def honest_balance(data: np.ndarray):
+    return (np.sum(data % 2) - np.sum(1 - data % 2)) ** 2
+
+def difs_balance(data):
+  return len(set([el - data[i] for i, el in enumerate(data[1:])]))
+
+def ordered_balance(data):
+    return (cnt_increase(data) - cnt_reverse(data)) ** 2

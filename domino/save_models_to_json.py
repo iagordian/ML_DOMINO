@@ -10,7 +10,7 @@ all_models = get_all_models_data()
 
 file_name = join_file_path(DATA_PACKAGES_DIR, 'ml_objects.json')
 with open(file_name, 'w') as file:
-    json.dump(all_models.model_dump(mode='json', exclude_none=True), file, ensure_ascii=False, indent=3)
+    json.dump(all_models.encoded_data, file, ensure_ascii=False, indent=3)
 
 
 thresholdes = get_all_thresholdes()

@@ -7,10 +7,11 @@ from domino.schemas import ML_Object
 
 from domino.domino_generate import get_six_ordered_domino_array, get_seven_ordered_domino_array, \
     get_nine_ordered_domino_array, get_ten_ordered_domino_array, get_eleven_ordered_domino_array, \
-    get_twelve_ordered_domino_array, get_fifteen_ordered_domino_array, get_eighteen_ordered_domino_array
+    get_twelve_ordered_domino_array, get_fifteen_ordered_domino_array, get_eighteen_ordered_domino_array, \
+    get_thirteen_size_domino_array, get_eight_size_domino_array, get_fourteen_size_domino_array, \
+    get_seventeen_size_domino_array, get_sixteen_size_domino_array
 
-from sklearn.metrics import accuracy_score, f1_score
-import pandas as pd
+from sklearn.metrics import accuracy_score
 import numpy as np
 
 
@@ -18,25 +19,20 @@ ordered = get_six_ordered_domino_array(random_seed=RANDOM_SEED)
 
 different_size_samples = [
     get_seven_ordered_domino_array().data,
+    get_eight_size_domino_array().data,
     get_nine_ordered_domino_array().data,
     get_ten_ordered_domino_array().data,
     get_eleven_ordered_domino_array().data,
     get_twelve_ordered_domino_array().data,
+    get_thirteen_size_domino_array().data,
+    get_fourteen_size_domino_array().data,
     get_fifteen_ordered_domino_array().data,
+    get_sixteen_size_domino_array().data,
+    get_seventeen_size_domino_array().data,
     get_eighteen_ordered_domino_array().data,
 ]
-
-
-test_rows = []
-for i, row in ordered.test_data.iterrows():
-    test_rows.append(row)
-
-train_rows = []
-for i, row in ordered.train_data.iterrows():
-    train_rows.append(row)
-
-train_data = pd.DataFrame(train_rows)
-test_data = pd.DataFrame(test_rows)
+train_data = ordered.train_data
+test_data = ordered.test_data
 
 creator_objects = []
 test_data_processed = []
@@ -47,7 +43,6 @@ for decision_tree_creator in desicions_trees_learning_objects:
     decision_tree.extract_order_vars()
     decision_tree.fit()
     decision_tree.to_log()
-    decision_tree.save_file()
     model_to_db(decision_tree.data)
     creator_objects.append(decision_tree)
     test_data_processed.append(decision_tree.test_data)

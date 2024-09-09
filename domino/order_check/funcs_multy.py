@@ -7,7 +7,8 @@ from copy import copy
 from domino.entrope import get_entrope, get_ternary_growth_entrope, get_secondary_growth_entrope
 from .funcs_self import get_order_mark, get_binary_order_mark, get_ternary_order_mark, \
     get_secondary_order_mark, get_clear_order_mark, is_bidirectional_balanced, \
-    is_stepped_balanced, is_pair_steped_balanced
+    is_stepped_balanced, is_pair_steped_balanced, honest_balance, difs_balance, \
+    ordered_balance
 
 
 def get_order_marks_array(data: List[float]) -> List[float]:
@@ -79,4 +80,13 @@ def is_standart(data: List[int]) -> bool:
       is_bidirectional_balanced(data, full_array=False),
       is_stepped_balanced(data, full_array=False),
       is_pair_steped_balanced(data, full_array=False),
-   ])
+   ]) and not bool(len(data) % 2)
+
+def honest_ordered_combine(data):
+   return honest_balance(data) * (1 - get_order_mark(data))
+
+def difs_order_combine(data):
+  return difs_balance(data) * (1 - get_order_mark(data))
+
+def ordered_balance_entrope_combine(data):
+   return ordered_balance(data) * get_entrope(data)

@@ -45,7 +45,11 @@ def get_ml_learned(model_name: str, db: Session) -> ML_Object:
 @db_select
 def get_all_ML_logs(db: Session) -> List[dict]:
     '''Возвращает все записи об обучении объектов ML'''
-    return [log[0] for log in db.query(ML_SQL.logs) if log[0] is not None]
+    logs = [log[0] for log in db.query(ML_SQL.logs) if log[0] is not None]
+    logs.append(
+        {'forest_model_thresholdes': {t.min_size: t.threshold for t in db.query(ForestModelThreshold_SQL).order_by(ForestModelThreshold_SQL.min_size)}}
+    )
+    return logs
 
 @db_transaction
 def set_best_model(model_name: str, db: Session):
@@ -74,8 +78,6 @@ def get_all_models_data(db: Session) -> ML_ObjectsList:
     models=[
         ML_Object.from_orm(model) for model in db.query(ML_SQL)
     ]
-    for model in models:
-        model.model_obj = model.model_obj is not None
 
     models = ML_ObjectsList(
         models=models
@@ -87,6 +89,8 @@ def save_thresholdes(thresholdes: Dict[int, float], db: Session):
     '''Сохранение словаря порогов принятия решения для дерева решений в БД'''
     
     for size, threshold in thresholdes.items():
+
+        db.query(ForestModelThreshold_SQL).filter_by(min_size=size).delete()
 
         threshold_obj = ForestModelThreshold(
             min_size=size,

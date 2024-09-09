@@ -3,7 +3,9 @@ from domino.domino_obj import OrderedArray, OrderedDominoCreater, \
     RandomArray
 from .domino_generate_arrays import domino_array_small, seven_size_domino_array, \
     nine_size_domino_array, ten_size_domino_array, eleven_size_domino_array, \
-    twelve_size_domino_array, fifteen_size_domino_array, eighteen_size_domino_array
+    twelve_size_domino_array, fifteen_size_domino_array, eighteen_size_domino_array, \
+    standart_domino_array, thirteen_size_domino_array, eight_size_domino_array, \
+    fourteen_size_domino_array, sixteen_size_domino_array, seventeen_size_domino_array
 
 from functools import partial
 from typing import List
@@ -35,14 +37,25 @@ get_eleven_ordered_domino_array = partial(get_ordered_domino_array, eleven_size_
 get_twelve_ordered_domino_array = partial(get_ordered_domino_array, twelve_size_domino_array)
 get_fifteen_ordered_domino_array = partial(get_ordered_domino_array, fifteen_size_domino_array)
 get_eighteen_ordered_domino_array = partial(get_ordered_domino_array, eighteen_size_domino_array)
+get_standart_ordered_domino_array = partial(get_ordered_domino_array, standart_domino_array)
+get_thirteen_size_domino_array = partial(get_ordered_domino_array, thirteen_size_domino_array)
+get_eight_size_domino_array = partial(get_ordered_domino_array, eight_size_domino_array)
+get_fourteen_size_domino_array = partial(get_ordered_domino_array, fourteen_size_domino_array)
+get_sixteen_size_domino_array = partial(get_ordered_domino_array, sixteen_size_domino_array)
+get_seventeen_size_domino_array = partial(get_ordered_domino_array, seventeen_size_domino_array)
 
 all_samples = {
     6: domino_array_small,
     7: seven_size_domino_array,
+    8: eight_size_domino_array,
     9: nine_size_domino_array,
     10: ten_size_domino_array,
     11: eleven_size_domino_array,
     12: twelve_size_domino_array,
+    13: thirteen_size_domino_array,
+    14: fourteen_size_domino_array,
     15: fifteen_size_domino_array,
+    16: sixteen_size_domino_array,
+    17: seventeen_size_domino_array,
     18: eighteen_size_domino_array
 }

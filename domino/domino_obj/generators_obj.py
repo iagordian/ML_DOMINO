@@ -9,6 +9,9 @@ class SixOrderedDominoCreater(OrderedDominoCreater):
 class SevenOrderedDominoCreater(OrderedDominoCreater):
     row_size = 7
 
+class EightOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 8
+
 class NineOrderedDominoCreater(OrderedDominoCreater):
     row_size = 9
 
@@ -21,8 +24,20 @@ class ElevenOrderedDominoCreater(OrderedDominoCreater):
 class TwelveOrderedDominoCreater(OrderedDominoCreater):
     row_size = 12
 
+class ThirteenOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 13
+
+class FourteenOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 14
+
 class FifteenOrderedDominoCreater(OrderedDominoCreater):
     row_size = 15
+
+class SixteenOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 16
+
+class SeventeenteenOrderedDominoCreater(OrderedDominoCreater):
+    row_size = 17
 
 class EighteenOrderedDominoCreater(OrderedDominoCreater):
     row_size = 18

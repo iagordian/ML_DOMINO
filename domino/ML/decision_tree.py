@@ -5,7 +5,8 @@ from domino.schemas import Domino
 from domino.order_check import balanced_mark, get_order_mark, \
     get_entrope_order_combine, is_bidirectional_balanced, \
     is_stepped_balanced, is_pair_steped_balanced, is_standart, \
-    process_order_vars_full
+    process_order_vars_full, honest_ordered_combine, difs_balance, \
+    difs_order_combine, ordered_balance_entrope_combine
 from domino.entrope import get_secondary_growth_entrope_full
 from domino.db import get_ml_learned, get_threshold
 
@@ -21,7 +22,9 @@ class DominoDecisionTree(Model):
 
     forest_model_process_funcs = [
         balanced_mark, get_secondary_growth_entrope_full,
-        get_entrope_order_combine, get_order_mark
+        get_entrope_order_combine, get_order_mark,
+        honest_ordered_combine, difs_balance,
+        difs_order_combine, ordered_balance_entrope_combine
     ]
 
     tree_model_process_funcs = [

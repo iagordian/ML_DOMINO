@@ -2,7 +2,9 @@
 
 from domino.domino_obj import SixOrderedDominoCreater, SevenOrderedDominoCreater, \
     NineOrderedDominoCreater, TenOrderedDominoCreater, ElevenOrderedDominoCreater, \
-    TwelveOrderedDominoCreater, FifteenOrderedDominoCreater, EighteenOrderedDominoCreater
+    TwelveOrderedDominoCreater, FifteenOrderedDominoCreater, EighteenOrderedDominoCreater, \
+    ThirteenOrderedDominoCreater, EightOrderedDominoCreater, FourteenOrderedDominoCreater, \
+    SixteenOrderedDominoCreater, SeventeenteenOrderedDominoCreater
 
 domino_array_small = [
     SixOrderedDominoCreater(lambda x: x),
@@ -319,7 +321,31 @@ domino_array_small = [
     SixOrderedDominoCreater(lambda n: 1 if not n % 3 else 5),
 ]
 
-standart_generate_funcs = [
+is_standart_generate_funcs = [
+    lambda n: 1 if n not in [0, 5] else 0,
+    lambda n: 0 if n not in [0, 5] else 1,
+    lambda n: 0 if n not in [0, 5] else 2,
+    lambda n: 0 if n not in [0, 5] else 3,
+    lambda n: 0 if n not in [0, 5] else 4,
+    lambda n: 0 if n not in [0, 5] else 5,
+    lambda n: 0 if n not in [0, 5] else 6,
+    lambda n: 1 if n % 2 else 0,
+    lambda n: 0 if n % 2 else 1,
+    lambda n: 2 if n % 2 else 0,
+    lambda n: 3 if n % 2 else 0,
+    lambda n: 4 if n % 2 else 0,
+    lambda n: 5 if n % 2 else 0,
+    lambda n: 6 if n % 2 else 0,
+    lambda n: 1 if n in [2, 5] else 0,
+    lambda n: 0 if n in [2, 5] else 1,
+    lambda n: 2 if n in [2, 5] else 0,
+    lambda n: 3 if n in [2, 5] else 0,
+    lambda n: 4 if n in [2, 5] else 0,
+    lambda n: 5 if n in [2, 5] else 0,
+    lambda n: 6 if n in [2, 5] else 0,
+]
+
+simple_generate_funcs = [
 
     lambda n: n // 4,
     lambda n: n // 4 + 1,
@@ -463,7 +489,7 @@ standart_generate_funcs = [
     
 ]
 
-nine_generate_funcs = standart_generate_funcs[:65] + [
+nine_generate_funcs = simple_generate_funcs[:65] + [
 
     lambda n: n % 6 if not n % 5 else 0,
     lambda n: n % 6 if not n % 5 else 1,
@@ -521,7 +547,7 @@ ten_generate_funcs = nine_generate_funcs[:77] + nine_generate_funcs[-20:] + [
     lambda n: n // 3 + 1,
 ]
 
-eleven_generate_funcs = standart_generate_funcs[:5] + standart_generate_funcs[10:65] + \
+eleven_generate_funcs = simple_generate_funcs[:5] + simple_generate_funcs[10:65] + \
     ten_generate_funcs[-4:] + [
         lambda n: n // 6,
         lambda n: n // 6 * 2,
@@ -581,7 +607,7 @@ eleven_generate_funcs = standart_generate_funcs[:5] + standart_generate_funcs[10
 
 
 twelve_generate_funcs = eleven_generate_funcs
-fifteen_generate_funcs = standart_generate_funcs[:3] + nine_generate_funcs[10:69] + \
+fifteen_generate_funcs = simple_generate_funcs[:3] + nine_generate_funcs[10:69] + \
     eleven_generate_funcs[-20:] + [
         lambda n: 6 - n % 6,
         lambda n: 6 - n % 5,
@@ -608,10 +634,18 @@ fifteen_generate_funcs = standart_generate_funcs[:3] + nine_generate_funcs[10:69
 
 eighteen_generate_funcs = fifteen_generate_funcs
 
-seven_size_domino_array = [SevenOrderedDominoCreater(f) for f in standart_generate_funcs]
+eight_generate_funcs = nine_generate_funcs[:75] + fifteen_generate_funcs[-5:] + eleven_generate_funcs[60:80]
+
+seven_size_domino_array = [SevenOrderedDominoCreater(f) for f in simple_generate_funcs]
 nine_size_domino_array = [NineOrderedDominoCreater(f) for f in nine_generate_funcs]
 ten_size_domino_array = [TenOrderedDominoCreater(f) for f in ten_generate_funcs]
 eleven_size_domino_array = [ElevenOrderedDominoCreater(f) for f in eleven_generate_funcs]
 twelve_size_domino_array = [TwelveOrderedDominoCreater(f) for f in twelve_generate_funcs]
 fifteen_size_domino_array = [FifteenOrderedDominoCreater(f) for f in fifteen_generate_funcs]
 eighteen_size_domino_array = [EighteenOrderedDominoCreater(f) for f in eighteen_generate_funcs]
+standart_domino_array = [SixOrderedDominoCreater(f) for f in is_standart_generate_funcs]
+thirteen_size_domino_array = [ThirteenOrderedDominoCreater(f) for f in eighteen_generate_funcs]
+eight_size_domino_array = [EightOrderedDominoCreater(f) for f in eight_generate_funcs]
+fourteen_size_domino_array = [FourteenOrderedDominoCreater(f) for f in eighteen_generate_funcs]
+sixteen_size_domino_array = [SixteenOrderedDominoCreater(f) for f in eighteen_generate_funcs]
+seventeen_size_domino_array = [SeventeenteenOrderedDominoCreater(f) for f in eighteen_generate_funcs]

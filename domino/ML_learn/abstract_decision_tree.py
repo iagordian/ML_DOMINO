@@ -4,6 +4,7 @@ from .abstract import LearningObject
 from domino.order_check import process_order_vars_full
 
 from abc import ABC
+from typing import Optional
 import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score
@@ -13,7 +14,7 @@ class DescisionTreeLearning(LearningObject, ABC):
     prefix = None
     process_domino_funcs = None
 
-    def __init__(self, train_data: pd.DataFrame, test_data: pd.DataFrame):
+    def __init__(self, train_data: pd.DataFrame, test_data: Optional[pd.DataFrame] = None):
         super().__init__()
 
         self.threshold = None
@@ -21,13 +22,17 @@ class DescisionTreeLearning(LearningObject, ABC):
         self.train_data_base = train_data
         self.train_target = train_data[5]
         self.test_data_base = test_data
-        self.test_target = test_data[5]
+        self.test_target = test_data.values[:, -1] if test_data is not None else None
 
     def extract_order_vars(self):
         '''Преобразует базовые данные о наборах к анализируемым данным'''
 
         self.train_data = self.process_data(self.train_data_base)
-        self.test_data = self.process_data(self.test_data_base)
+        
+        if self.test_data_base is not None:
+            self.test_data = self.process_data(self.test_data_base)
+        else:
+            self.test_data = None
 
     def process_data(self, data: pd.DataFrame):
         return process_order_vars_full(data, *self.process_domino_funcs)
@@ -42,3 +47,4 @@ class DescisionTreeLearning(LearningObject, ABC):
         accuracy = accuracy_score(predicted, self.test_target)
         
         self.log_data['accuracy'] = accuracy
+

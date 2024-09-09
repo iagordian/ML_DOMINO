@@ -226,8 +226,10 @@ function key_board_funcks(e) {
 }
 
 function clear_size_input() {
-    $('#expected_size_input').val('')
-    $('#expected_size_input').focus()
+    if (!$("#expected_size_input").is(":focus")) {
+        $('#expected_size_input').val('')
+        $('#expected_size_input').focus()
+    }    
 }
 
 
@@ -247,6 +249,9 @@ function change_max_size() {
     var actual_length = get_actual_size_domino_array()
 
     if (actual_length < val) {
+        $('#table').removeClass('ordered_false')
+        $('#table').removeClass('ordered_true')
+        $('#table').removeClass('ordered_unknow')
         add_empty_picture()
     }
 

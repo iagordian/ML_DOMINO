@@ -2,7 +2,10 @@
 from .abstract_decision_tree import DescisionTreeLearning
 from domino.order_check import balanced_mark, get_order_mark, \
     get_entrope_order_combine, is_bidirectional_balanced, \
-    is_stepped_balanced, is_pair_steped_balanced
+    is_stepped_balanced, is_pair_steped_balanced, \
+    honest_ordered_combine, difs_balance, difs_order_combine, \
+    ordered_balance_entrope_combine
+
 from domino.entrope import get_secondary_growth_entrope_full
 from domino.config import RANDOM_SEED
 from domino.best_model_container import BestThresholdContainer
@@ -16,15 +19,18 @@ from sklearn.metrics import accuracy_score
 
 
 
+
 class RandomForestClassifierCreator(DescisionTreeLearning):
 
     model_obj_type = RandomForestClassifier
     process_domino_funcs = [
         balanced_mark, get_secondary_growth_entrope_full,
-        get_entrope_order_combine, get_order_mark
+        get_entrope_order_combine, get_order_mark,
+        honest_ordered_combine, difs_balance,
+        difs_order_combine, ordered_balance_entrope_combine
     ]
     model_params = {
-        'n_estimators': 64, 
+        'n_estimators': 128, 
         'max_depth': 16, 
         'min_samples_split': 4, 
         'random_state': RANDOM_SEED

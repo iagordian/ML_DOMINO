@@ -1,9 +1,9 @@
 
-from domino_generate import get_random_array, get_ordered_domino_array
+from domino.domino_generate import get_random_array, get_six_ordered_domino_array
 import pandas as pd
 
 randoms = get_random_array() 
-ordered = get_ordered_domino_array()
+ordered = get_six_ordered_domino_array()
 
 rows = []
 test_rows = []

@@ -30,3 +30,9 @@ def get_secondary_growth_entrope_full(data: List[int]) -> float:
     entrope = get_entrope(data)
     center = len(data) // 2
     return entrope - 0.5 * (get_entrope(data[:center]) + get_entrope(data[center:]))
+
+def get_ternary_growth_entrope_full(data: List[int]) -> float:
+    '''Возвращает прирост к энтропии при делении массива на 3'''    
+    entrope = get_entrope(data)
+    third = len(data) // 3
+    return entrope - (1 / 3) * (get_entrope(data[:third]) + get_entrope(data[third:third * 2]) + get_entrope(data[third * 2:]))
