@@ -5,6 +5,7 @@ from domino.best_model_container import BestModelContainer
 from domino.config import DATA_PACKAGES_DIR
 from domino.files_navigation import join_file_path
 from domino.best_model_container import BestThresholdContainer
+from domino.order_check import complex_ensemble_funcs
 
 from abc import ABC
 import pandas as pd
@@ -60,8 +61,7 @@ class ClassificatorLearning(LearningObject, ABC):
 
     def add_weights_to_log(self):
         '''Добавляет веса элементов в предсказании моделей и добавляет в логи'''
-        names = ['entrope', 'entrope_secondary', 'entrope_ternary', 'clear_ordered',
-                 'secondary_ordered', 'ternary_ordered', 'order_degree', 'binary_order_degree']
+        names = list(map(lambda l: l.replace('\n', ' '), complex_ensemble_funcs.labels_generator))
         coefs = list(*self.model_obj.coef_)
         self.log_data['AUC'] = self.threshold
 
