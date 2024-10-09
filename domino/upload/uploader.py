@@ -1,5 +1,6 @@
 
 import json
+import os
 
 from domino.config.config import DATA_PACKAGES_DIR, UPLOAD_LOG_DIR
 
@@ -45,8 +46,11 @@ class Uploader:
 
     def log(self):
 
-        if self.errors:
-            file_name = UPLOAD_LOG_DIR + 'upload_error.json'
+        file_name = UPLOAD_LOG_DIR + 'upload_error.json'
+        if self.errors:            
             with open(file_name, 'w') as file:
                 json.dump(self.errors, file, indent=3, ensure_ascii=False)
+        elif os.path.exists(file_name):
+            os.remove(file_name)
+
 

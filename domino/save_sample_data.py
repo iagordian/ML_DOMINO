@@ -6,7 +6,7 @@ from domino.db import model_to_db
 
 model_name = 'SampleGenerator'
 name = {'model_name': model_name}
-samples_data = {f'sample_size_of_length_{size}': len(arr) for size, arr in all_samples.items()}
+samples_data = {f'sample_size_of_length_{size}': gen().data.shape[0] for size, gen in all_samples.items()}
 
 model = ML_Object(
     model_name=model_name,

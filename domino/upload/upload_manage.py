@@ -1,8 +1,6 @@
 
-from domino.schemas import PicturesLst, ML_ObjectsList, ForestModelThresholdList
-from domino.db import save_picture, model_to_db, save_threshold
-from domino.config import DATA_PACKAGES_DIR
-from domino.files_navigation import join_file_path
+from domino.schemas import PicturesLst, ML_ObjectsList, RandomForestObjectsList
+from domino.db import save_picture, model_to_db, random_forest_to_db
 
 def upload_pictures(json_str):
 
@@ -18,10 +16,11 @@ def upload_models(json_str):
     for model_data in ml_models_data:
         model_to_db(model_data)
 
-def upload_thresholdes(json_str):
+def upload_random_forest(json_str):
 
-    thresholdes_data = ForestModelThresholdList.parse_raw(json_str).thresholdes
+    ml_models_data = RandomForestObjectsList.parse_raw(json_str).models
 
-    for threshold_data in thresholdes_data:
-        save_threshold(threshold_data)
+    for random_forest_data in ml_models_data:
+        random_forest_to_db(random_forest_data)
+
 

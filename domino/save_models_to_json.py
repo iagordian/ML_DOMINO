@@ -1,6 +1,6 @@
 
 
-from domino.db import get_all_models_data, get_all_thresholdes
+from domino.db import get_all_models_data, get_all_random_forest
 from domino.config import DATA_PACKAGES_DIR
 from domino.files_navigation import join_file_path
 
@@ -13,7 +13,8 @@ with open(file_name, 'w') as file:
     json.dump(all_models.encoded_data, file, ensure_ascii=False, indent=3)
 
 
-thresholdes = get_all_thresholdes()
-file_name = join_file_path(DATA_PACKAGES_DIR, 'thresholdes.json')
+random_forest_models = get_all_random_forest()
+
+file_name = join_file_path(DATA_PACKAGES_DIR, 'random_forest_models.json')
 with open(file_name, 'w') as file:
-    json.dump(thresholdes.model_dump(mode='json', exclude_none=True), file, ensure_ascii=False, indent=3)
+    json.dump(random_forest_models.encoded_data, file, ensure_ascii=False, indent=3)
