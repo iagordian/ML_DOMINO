@@ -1,28 +1,24 @@
 
-class BestModelContainer:
 
-    def __init__(self):
-        self.best_score = 0
-        self.best_model_name = None
+from .abstract import BestObjectContainer
 
-    def __setitem__(self, score: float, model_name: str):
-        '''Принимает данные о новой модели и сохраняет их в случае, если они лучше предыдущих'''
+class BestModelContainer(BestObjectContainer):
+    obj_name = 'best_model_name'
 
-        if score > self.best_score:
-            self.best_score = score
-            self.best_model_name = model_name
+class BestThresholdContainer(BestObjectContainer):
+    obj_name = 'best_threshold'
 
+class BestModelObjectContainer(BestObjectContainer):
+    obj_name = 'best_model'
+    attrs = [
+        'criterion', 'n_estimators', 'max_depth',
+        'min_samples_split', 'min_samples_leaf',
+        'max_features'
+    ]
 
+    def __repr__(self):
 
-class BestThresholdContainer:
+        obj = getattr(self, self.obj_name)
+        params_vals = [f'{attr_name}={getattr(obj, attr_name, None)}' for attr_name in self.attrs]
 
-    def __init__(self):
-        self.best_score = 0
-        self.best_threshold = None
-
-    def __setitem__(self, score: float, threshold: int):
-        '''Принимает данные о новой модели и сохраняет их в случае, если они лучше предыдущих'''
-
-        if score > self.best_score:
-            self.best_score = score
-            self.best_threshold = threshold
+        return f'Параметры лучшей модели:\naccuarancy={self.best_score}' + '\n' + '\n'.join(params_vals)
