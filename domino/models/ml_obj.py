@@ -14,8 +14,9 @@ class ML_Object(Base):
     logs: Mapped[Optional[dict]] = mapped_column(MutableDict.as_mutable(JSON), comment='Логирование процесса обучения')
     is_the_best_classifier_model: Mapped[Optional[int]] = mapped_column(Integer, default=0, comment='Флаг лучшей модели классификации')
 
-class ForestModelThreshold(Base):
-    __tablename__ = 'forest_model_thresholdes'
 
-    min_size: Mapped[int] = mapped_column(Integer, primary_key=True, comment='Пороговое значение для преминения порога')
-    threshold: Mapped[float] = mapped_column(FLOAT, comment='Значение порога')
+class RandomForestObject(Base):
+    __tablename__ = 'random_forest_objects'
+
+    field_size: Mapped[int] = mapped_column(primary_key=True, comment='Размер ряда')
+    model_obj: Mapped[Optional[bytes]] = mapped_column(LargeBinary, comment='Модель в байтах')
