@@ -1,11 +1,11 @@
 
 from sqlalchemy.orm import Session
-from typing import List, ByteString, Dict
+from typing import List, ByteString
 
 from domino.schemas import Picture as Picture, ML_Object, ML_ObjectsList, \
-    ForestModelThreshold, ForestModelThresholdList
+    RandomForestObject, RandomForestObjectsList
 from domino.models import Picture as Picture_obj, ML_Object as ML_SQL, \
-    ForestModelThreshold as ForestModelThreshold_SQL
+    RandomForestObject as RandomForestObject_SQL
 from domino.db import db_transaction, db_select
 
 @db_transaction
@@ -13,12 +13,6 @@ def save_picture(picture: Picture, db: Session):
     '''Сохраняет в БД изображение домино'''
     picture = Picture_obj(**picture.model_dump(exclude_none=True))
     db.add(picture)
-
-@db_transaction
-def save_threshold(threshold: ForestModelThreshold, db: Session):
-    '''Сохраняет в БД изображение домино'''
-    threshold = ForestModelThreshold_SQL(**threshold.model_dump(exclude_none=True))
-    db.add(threshold)
 
 @db_select
 def get_all_pictures(db: Session) -> List[Picture]:
@@ -42,13 +36,23 @@ def get_ml_learned(model_name: str, db: Session) -> ML_Object:
     '''Загружает объект ML из БД'''
     return ML_Object.from_orm(db.query(ML_SQL).filter_by(model_name=model_name).first())
 
+@db_transaction
+def random_forest_to_db(forest_model: RandomForestObject, db: Session):
+    '''Сохраняет объект ML в БД'''
+    db.query(RandomForestObject_SQL).filter_by(field_size=forest_model.field_size).delete()
+    obj = RandomForestObject_SQL(**forest_model.model_dump(exclude_none=True))
+    db.add(obj)
+
+@db_select
+def get_random_forest_learned(field_size: int, db: Session) -> RandomForestObject:
+    '''Загружает объект ML из БД'''
+    print(db.query(RandomForestObject_SQL).filter_by(field_size=field_size).first(), field_size, '!!!!!!!!!!')
+    return RandomForestObject.from_orm(db.query(RandomForestObject_SQL).filter_by(field_size=field_size).first())
+
 @db_select
 def get_all_ML_logs(db: Session) -> List[dict]:
     '''Возвращает все записи об обучении объектов ML'''
     logs = [log[0] for log in db.query(ML_SQL.logs) if log[0] is not None]
-    logs.append(
-        {'forest_model_thresholdes': {t.min_size: t.threshold for t in db.query(ForestModelThreshold_SQL).order_by(ForestModelThreshold_SQL.min_size)}}
-    )
     return logs
 
 @db_transaction
@@ -84,39 +88,15 @@ def get_all_models_data(db: Session) -> ML_ObjectsList:
     )
     return models
 
-@db_transaction
-def save_thresholdes(thresholdes: Dict[int, float], db: Session):
-    '''Сохранение словаря порогов принятия решения для дерева решений в БД'''
-    
-    for size, threshold in thresholdes.items():
-
-        db.query(ForestModelThreshold_SQL).filter_by(min_size=size).delete()
-
-        threshold_obj = ForestModelThreshold(
-            min_size=size,
-            threshold=threshold
-        )
-        db.add(ForestModelThreshold_SQL(
-            **threshold_obj.model_dump()
-        ))
-
 @db_select
-def get_all_thresholdes(db: Session) -> ForestModelThresholdList:
-    '''Возвращает все объекты threshold в виде одного объекта'''
+def get_all_random_forest(db: Session) -> RandomForestObjectsList:
+    '''Возвращает описание всех моделей RandomForest'''
 
-    thresholdes = ForestModelThresholdList(
-        thresholdes = [{
-            'min_size': threshold.min_size,
-            'threshold': threshold.threshold
-        } for threshold in db.query(ForestModelThreshold_SQL)]
+    models=[
+        RandomForestObject.from_orm(model) for model in db.query(RandomForestObject_SQL)
+    ]
+
+    models = RandomForestObjectsList(
+        models=models
     )
-    return thresholdes
-
-@db_select
-def get_threshold(size: int, db: Session) -> float:
-    '''Возвращает значение порога для переданной выборки'''
-    return db.query(ForestModelThreshold_SQL.threshold).filter(
-        ForestModelThreshold_SQL.min_size >= size
-    ).order_by(
-        ForestModelThreshold_SQL.min_size
-    ).first()[0]
+    return models
