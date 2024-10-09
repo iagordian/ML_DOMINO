@@ -1,92 +1,63 @@
 
-from typing import List, Callable
+from typing import List
 import numpy as np
 import pandas as pd
-from copy import copy
 
-from domino.entrope import get_entrope, get_ternary_growth_entrope, get_secondary_growth_entrope
-from .funcs_self import get_order_mark, get_binary_order_mark, get_ternary_order_mark, \
-    get_secondary_order_mark, get_clear_order_mark, is_bidirectional_balanced, \
-    is_stepped_balanced, is_pair_steped_balanced, honest_balance, difs_balance, \
-    ordered_balance
+from domino.entrope import get_entrope, get_secondary_growth_entrope, caculate_entrope
+from .funcs_self import get_order_mark
 
 
-def get_order_marks_array(data: List[float]) -> List[float]:
-    '''Возвращает массив оценок упорядоченности для массива'''
+def ordered_balance(data: np.ndarray) -> float:
+    
+    '''Возвращает значение энтропии между случаями возрастания и убывания чисел'''
 
-    if isinstance(data, pd.Series):
-       data = list(data)
-       
-    entrope = get_entrope(data)
-    entrope_secondary = get_secondary_growth_entrope(entrope, data)
-    entrope_ternary = get_ternary_growth_entrope(entrope, data)
+    increase = 0
+    reverse = 0
 
-    order_degree = get_order_mark(data)
-    binary_order_degree = get_binary_order_mark(data)
+    for i, el in enumerate(data[1:]):
 
-    clear_ordered = get_clear_order_mark(data)
-    ternary_ordered = get_ternary_order_mark(data)
-    secondary_ordered = get_secondary_order_mark(data)
+        increase += el > data[i]
+        reverse += el < data[i]
 
-    return [entrope, entrope_secondary, entrope_ternary, clear_ordered,
-            secondary_ordered, ternary_ordered, order_degree, binary_order_degree]
+    ordered_maks = [increase, reverse]
+
+    return caculate_entrope(*ordered_maks)
+
 
 def get_entrope_order_combine(data: List[int]) -> float:
   '''Возвращает произведения энтропии для ряда и степени его упорядоченности'''
   return get_order_mark(data) * get_entrope(data)
 
-def get_domino_order_marks_array(first: List[float], second: List[float], mark_array: bool=False) -> List[float]:
-    '''Возвращает массив оценок уопорядоченности для рядов домино'''
-
-    if mark_array:
-        first = get_order_marks_array(first)
-        second = get_order_marks_array(second)
-
-    order_difs = [(of - os) ** 2 for of, os in zip(first, second)]
-
-    ordered_marks_array = first + second + order_difs
-    return ordered_marks_array
+def get_secondary_entrope_order_combine(data: List[int]) -> float:
+  '''Возвращает произведения энтропии для ряда и степени его упорядоченности'''
+  return get_order_mark(data) * get_secondary_growth_entrope(data)
 
 
-def process_order_vars(data: List[int], process_func: Callable) -> np.ndarray:
-  '''Возвращает данные об упорядоченности ряда для обработки моделью'''
+def bidirectional_balance_entrope(data):
+   iter_length = len(data) // 2
+   balance = list()
 
-  order_vars_data = np.zeros((data.shape[0], 7))
+   for i in range(iter_length):
+      balance.append(data[i] - data[-(i + 1)])
 
-  if isinstance(data, pd.DataFrame):
-     interations = data.values
-  if isinstance(data, np.ndarray):
-     interations = data
+   return len(balance) / iter_length
 
-  for i, row in enumerate(interations):
+def hulf_balance_entrope(data):
+   iter_length = len(data) // 2
+   balance = list()
 
-    row = copy(row)
+   for i in range(iter_length):
+      balance.append(data[i] - data[i + iter_length])
 
-    for num in range(7):
-      row[-1] = num
-      order_vars_data[i][num] = process_func(row)
+   return len(balance) / iter_length
 
-  return order_vars_data
+def sin_cos_entrope(data):
 
-def process_order_vars_full(data: List[int], *process_funcs: Callable) -> np.ndarray:
-  '''Возвращает данные об упорядоченности ряда на основании нескольких функций'''
-  return np.concatenate([
-      process_order_vars(data, process_func) for process_func in process_funcs
-  ], axis=1)
+   sin = 0
+   cos = 0
+   
+   for i, el in enumerate(data[1:]):
+      sin += (i % 2 == 1 and el > data[i]) or (i % 2 == 0 and el < data[i])
+      cos += (i % 2 == 1 and el < data[i]) or (i % 2 == 0 and el > data[i])
 
-def is_standart(data: List[int]) -> bool:
-   '''Проверяет, подходит ли переданный ряд под стандартные паттерны'''      
-   return any([
-      is_bidirectional_balanced(data, full_array=False),
-      is_stepped_balanced(data, full_array=False),
-      is_pair_steped_balanced(data, full_array=False),
-   ]) and not bool(len(data) % 2)
-
-def honest_ordered_combine(data):
-   return honest_balance(data) * (1 - get_order_mark(data))
-
-def difs_order_combine(data):
-  return difs_balance(data) * (1 - get_order_mark(data))
-
-def ordered_balance_entrope_combine(data):
-   return ordered_balance(data) * get_entrope(data)
+   return caculate_entrope(sin, cos)
