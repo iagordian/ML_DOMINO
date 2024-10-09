@@ -27,6 +27,22 @@ body {
     border-bottom: 10px solid black;
 }
 
+#graphs_area{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #bab1a6;
+}
+
+#graph_container{
+    border-radius: 20px;
+    outline: 3px solid black;
+    height: 85vh;
+    width: 90vw;
+}
+
 #rigth_menu{
     position: absolute;
     right: 0;
@@ -40,6 +56,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 5;  
 }
 
 #left_menu{
@@ -68,6 +85,25 @@ body {
     border-bottom: 5px solid black;
     border-right: 5px solid black;
     border-bottom-right-radius: 30px;
+    padding-top: 2vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 3;
+}
+
+#target_menu{
+    position: absolute;
+    right: 0;
+    top: 8vh;
+    width: 12vw;
+    height: 16vh;
+    background: #bab1a6;
+    border-bottom: 5px solid black;
+    border-left: 5px solid black;
+    border-bottom-left-radius: 30px;
     padding-top: 2vh;
     padding-left: 1vh;
     padding-right: 1vh;
@@ -242,6 +278,8 @@ body {
 
 #logs_target {
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 #logs_target a{
@@ -249,6 +287,7 @@ body {
     color: black;
     text-decoration: none;
     font-style: italic;
+    margin-top: 1vh;
 }
 
 
@@ -316,6 +355,31 @@ body {
     border: 2px solid red;
 }
 
-#empty_picture_src{
+.empty_src{
     display: none;
+}
+
+#graph_tumbler{
+    margin-top: 5vh;
+    cursor: pointer;
+    background: #F5D7BF;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-style: italic;
+    font-size: 1.4vh;
+    width: 12vw;
+}
+
+#graph_tumbler:hover{
+    background: #E39250;
+}
+
+#graph_tumbler:active{
+    background: radial-gradient(#E39250, #e59c61, #E39250);
+}
+
+.graph_img{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
 }

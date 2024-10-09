@@ -19,8 +19,8 @@
 <script src="{{url_for('static', path='/scripts/bootstrap.js')}}"> </script>
 <script src="{{url_for('static', path='/scripts/bootstrap.bundle.js')}}"> </script>
 
-<script src="{{url_for('static', path='/scripts/events.js')}}"> </script>
 <script src="{{url_for('static', path='/scripts/manage.js')}}"> </script>
+<script src="{{url_for('static', path='/scripts/events.js')}}"> </script>
 
 <body>
 
@@ -73,6 +73,24 @@
 
     </div>
 
+    <div id="target_menu">
+
+        <div id="logs_target">
+            <a href="{{url_for('get_logs')}}">
+                Скачать данные о моделях
+            </a>
+
+            <a href="{{url_for('graphs')}}" target="_blank">
+                Посмотреть графики
+            </a>
+
+            <a href="https://docs.google.com/presentation/d/1BIn5Ddeh52BSiQ8KR5jf31wa3BWHcnJSCbHMh6YHx7M/edit#slide=id.g2d3a86cb19a_0_10" target="_blank">
+                Открыть презентацию
+            </a>
+        </div>
+
+    </div>
+
     <div id="up_section">
 
         <div id="table">
@@ -95,17 +113,11 @@
             {% for picture in pictures %}
                 <img class="domino_pic" id="{{picture.uid}}" src="data:;base64,{{picture.img}}" up="{{picture.up}}" down="{{picture.down}}">
             {% endfor %}
-        </div>
-
-        <div id="logs_target">
-            <a href="{{url_for('get_logs')}}">
-                Скачать данные о моделях
-            </a>
-        </div>
+        </div>        
 
     </div>
 
-    <input id="empty_picture_src" value="data:;base64,{{empty_picture.img}}">
+    <input id="empty_picture_src" class="empty_src" value="data:;base64,{{empty_picture.img}}">
 
 </div>
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', path='CSS/index.css')}}">
+
+    <link rel="shortcut icon" href="#">
+
+    <title>Доминошки</title>
+</head>
+
+<script src="{{url_for('static', path='/scripts/jquery-3.6.4.min.js')}}"> </script>
+
+<script src="{{url_for('static', path='/scripts/events.js')}}"> </script>
+<script src="{{url_for('static', path='/scripts/manage.js')}}"> </script>
+
+<body>
+
+    <div id="graphs_area">
+
+        <div id="graph_container">
+            <img id="importanses_graph" class="graph_img" src="data:;base64,{{importanses_graph.bytes_string}}">         
+            <img id="effectivity_graph" class="graph_img empty_src" src="data:;base64,{{effectivity_graph.bytes_string}}">
+        </div>
+
+        <button id="graph_tumbler" state="0">
+            Эффективность модели
+        </button>
+
+    </div>
+
+</body>

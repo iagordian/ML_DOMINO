@@ -14,6 +14,16 @@ var send_domino_funcs = {
     'predict_radio': send_domino_data_to_predict
 }
 
+var graph_tumbler_text = {
+    0: "Важность признаков",
+    1: "Эффективность модели"
+}
+
+var graphs = {
+    0: "#importanses_graph",
+    1: "#effectivity_graph"
+}
+
 function add_domino() {
 
     var n = get_stack_max_size_to_predict()
@@ -241,6 +251,7 @@ function change_max_size() {
 
     if (val < 6 | val > 18) {
         expected_size_input.addClass('has_error')
+        expected_size_input.blur()
         return
     }
     
@@ -348,5 +359,18 @@ function get_scrollbar_pos(elem_num) {
     }
 
     return scroll_width
+}
 
+function switch_graph() {
+
+    var actual_state = Number($(this).attr('state'))
+    var new_state = 1 - actual_state
+    var actual_graph_id = graphs[actual_state]
+    var new_graph_id = graphs[new_state]
+
+    $(actual_graph_id).addClass('empty_src')
+    $(new_graph_id).removeClass('empty_src')
+
+    $(this).text(graph_tumbler_text[actual_state])
+    $(this).attr('state', new_state)
 }

@@ -26,7 +26,6 @@ class ML_Object(Model):
     def encoded_data(self):
         content = self.model_dump(exclude_none=True)
         if content.get('model_obj'):
-            bytes_container = io.BytesIO(self.model_obj)
             content['model_obj'] = base64.b64encode(self.model_obj).decode("utf-8") 
         return content
     
@@ -41,11 +40,36 @@ class ML_ObjectsList(Model):
                 obj.encoded_data for obj in self.models
             ]
         }
+    
 
-class ForestModelThreshold(Model):
+class RandomForestObject(Model):
 
-    min_size: int = Field(title='Пороговое значение для преминения порога')
-    threshold: float = Field(title='Значение порога')
+    field_size: int = Field(title='Размер ряда')
+    model_obj: Optional[Union[ByteString, str]] = Field(None, title='Модель в байтах')
 
-class ForestModelThresholdList(Model):
-    thresholdes: List[ForestModelThreshold] = Field(title='Перечень пороговых значений')
+    @validator('model_obj')
+    def decode(cls, model_obj):
+
+        if isinstance(model_obj, str):
+            return base64.b64decode(model_obj.encode("utf-8"))
+
+        return model_obj
+    
+    @property
+    def encoded_data(self):
+        content = self.model_dump(exclude_none=True)
+        if content.get('model_obj'):
+            content['model_obj'] = base64.b64encode(self.model_obj).decode("utf-8") 
+        return content
+    
+    
+class RandomForestObjectsList(Model):
+    models: List[RandomForestObject] = Field(title='Описание объектов ML')
+
+    @property 
+    def encoded_data(self):
+        return {
+            'models': [
+                obj.encoded_data for obj in self.models
+            ]
+        }

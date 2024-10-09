@@ -22,3 +22,7 @@ class Domino(Model):
     @property
     def size(self):
         return len(self.up)
+    
+    @property
+    def size_to_predict(self):
+        return self.size + 1
