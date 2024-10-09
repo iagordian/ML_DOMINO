@@ -6,7 +6,7 @@ from abc import ABC
 
 class DominoCreater(ABC):
 
-    row_size = 6
+    row_size = None
 
     def __init__(self):
         self.uid = uuid.uuid4()

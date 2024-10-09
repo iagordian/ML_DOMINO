@@ -23,11 +23,14 @@ class DominoArray(ABC):
 
   def __len__(self):
     return len(self.data)
+  
+  def drop_duplicates(self):
+    self.data = self.data.drop_duplicates()
 
   def train_test_split(self, random_seed=None):
     '''Разбивка наборов на тренировочную и тестовую части'''
     random_seed = random_seed or random.randint(0, 100)
-    self.train_data, self.test_data = train_test_split(self.data, test_size=0.3, random_state=random_seed)
+    self.train_data, self.test_data = train_test_split(self.data, test_size=0.1, random_state=random_seed, stratify=self.data[self.data.columns[-1]], shuffle=True)
 
 class OrderedArray(DominoArray):
 
@@ -77,7 +80,7 @@ class RandomArray(OrderedArray):
   def __init__(self, size, random_seed=None):
 
     data = []
-    creater = RandomDominoCreater(random_seed)
+    creater = RandomDominoCreater(random_seed=random_seed)
     while len(data) != size:
       line = creater()
 

@@ -4,7 +4,7 @@ import random
 from .generator_obj_abs import OrderedDominoCreater, DominoCreater
 
 class SixOrderedDominoCreater(OrderedDominoCreater):
-    pass
+    row_size = 6
     
 class SevenOrderedDominoCreater(OrderedDominoCreater):
     row_size = 7
@@ -48,11 +48,13 @@ class RandomDominoCreater(DominoCreater):
     Имеет собственную функцию для генерации случайного ряда домино
     '''
 
-    def __init__(self, random_seed=None):
 
-        self.func = lambda n: random.randint(0, 6)
+    def __init__(self, row_size=6, random_seed=None):
+
+        self.func = lambda n: random.randint(0, 6)        
         super().__init__()
-
+        self.row_size = row_size
+        
         # Устанавливает random.seed для генерации воспроизводимых
         # случайных рядов домино.
         if random_seed is not None:
