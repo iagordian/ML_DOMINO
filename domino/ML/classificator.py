@@ -3,7 +3,7 @@
 
 from .abstratc import Model
 from domino.schemas import Domino
-from domino.order_check import get_domino_order_marks_array
+from domino.order_check import mark_both_domino_to_classificate
 from domino.db import get_ml_learned, get_best_classifier_model
 
 import joblib
@@ -27,7 +27,7 @@ class DominoClassificator(Model):
     def order_check(self, domino: Domino) -> bool:
         '''Проверяет принадлежность переданного домино к упорядоченным'''
         up_data, down_data = domino.data
-        ordered_marks_array = np.array([get_domino_order_marks_array(up_data, down_data, mark_array=True)])
+        ordered_marks_array = mark_both_domino_to_classificate(up_data, down_data)
         ordered_marks_array = self.scaler.transform(ordered_marks_array)
 
         return self.predict(ordered_marks_array) > self.threshold
