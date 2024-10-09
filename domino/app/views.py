@@ -1,14 +1,16 @@
 
 from fastapi import Request
 from fastapi.responses import JSONResponse, StreamingResponse
+import json
+import io
 
 from .app import app, templates
+from domino.graphs import FeatureImportansesGraph, ModelEffectivityGraph
 from domino.schemas import Domino, PictureAnswer
 from domino.db import get_all_pictures, get_empty_picture, get_all_ML_logs, \
     get_img_bytes
 from domino.ML import DominoClassificator, DominoDecisionTree
-import json
-import io
+
 
 @app.get('/')
 async def index(request: Request):
@@ -21,7 +23,7 @@ async def index(request: Request):
 @app.post('/ordered_check')
 async def order_check(domino: Domino):
 
-    if DominoDecisionTree.open().ordered_check(domino):
+    if DominoDecisionTree.open(domino.size).ordered_check(domino):
         ordered_check_decision = 2
 
     elif DominoClassificator.open().order_check(domino):
@@ -38,7 +40,7 @@ async def order_check(domino: Domino):
 @app.post('/predict')
 async def predict(domino: Domino):
 
-    predicted_up, predicted_down, is_sure = DominoDecisionTree.open().predict(domino)
+    predicted_up, predicted_down = DominoDecisionTree.open(domino.size_to_predict).predict(domino)
     img_bytes = get_img_bytes(predicted_up, predicted_down)
 
     picture_answer = PictureAnswer(
@@ -63,3 +65,14 @@ def get_logs():
     }
 
     return StreamingResponse(img_container, headers=headers)
+
+
+@app.get('/graphs')
+async def graphs(request: Request):
+
+    importanses_graph = FeatureImportansesGraph()
+    effectivity_graph = ModelEffectivityGraph()
+
+    return templates.TemplateResponse('graphs.html', {'request': request,
+                                                      'importanses_graph': importanses_graph,
+                                                      'effectivity_graph': effectivity_graph})
