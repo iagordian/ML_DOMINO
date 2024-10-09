@@ -16,20 +16,14 @@ domino_array_small = [
     SixOrderedDominoCreater(lambda x: 4),
     SixOrderedDominoCreater(lambda x: 5),
     SixOrderedDominoCreater(lambda x: 6),
-    SixOrderedDominoCreater(lambda x: 6 - x),
-    SixOrderedDominoCreater(lambda x: 5 - x),
-    SixOrderedDominoCreater(lambda x: x % 2),
-    SixOrderedDominoCreater(lambda x: int(x % 2 == 0)),
     SixOrderedDominoCreater(lambda x: x % 2 + 1),
     SixOrderedDominoCreater(lambda x: x % 2 + 2),
     SixOrderedDominoCreater(lambda x: x % 2 + 3),
     SixOrderedDominoCreater(lambda x: x % 2 + 4),
     SixOrderedDominoCreater(lambda x: x % 2 + 5),
-
-    SixOrderedDominoCreater(lambda x: x if x % 2 else 0),
-    SixOrderedDominoCreater(lambda x: x if x % 2 else 6),
-    SixOrderedDominoCreater(lambda x: x if x % 2 else 4),
-    SixOrderedDominoCreater(lambda x: x if x % 2 else 2),
+    SixOrderedDominoCreater(lambda x: 6 - x),    
+    SixOrderedDominoCreater(lambda x: x % 2),
+    SixOrderedDominoCreater(lambda x: int(x % 2 == 0)),     
 
     SixOrderedDominoCreater(lambda x: x if not x % 2 else 6),
     SixOrderedDominoCreater(lambda x: x if not x % 2 else 5),
@@ -37,14 +31,27 @@ domino_array_small = [
     SixOrderedDominoCreater(lambda x: x if not x % 2 else 3),
     SixOrderedDominoCreater(lambda x: x if not x % 2 else 1),
 
+    SixOrderedDominoCreater(lambda x: 5 - x),
+
     SixOrderedDominoCreater(lambda x: (x % 3) + 1),
     SixOrderedDominoCreater(lambda x: (x % 3)),
+
+    SixOrderedDominoCreater(lambda x: x if x % 2 else 0),
+    SixOrderedDominoCreater(lambda x: x if x % 2 else 6),
+    SixOrderedDominoCreater(lambda x: x if x % 2 else 4),
+    SixOrderedDominoCreater(lambda x: x if x % 2 else 2),
 
     SixOrderedDominoCreater(lambda x: 2 if x % 2 else 0),
     SixOrderedDominoCreater(lambda x: 3 if x % 2 else 0),
     SixOrderedDominoCreater(lambda x: 4 if x % 2 else 0),
     SixOrderedDominoCreater(lambda x: 5 if x % 2 else 0),
     SixOrderedDominoCreater(lambda x: 6 if x % 2 else 0),
+
+    SixOrderedDominoCreater(lambda x: 2 if x % 2 == 0 else 1),
+    SixOrderedDominoCreater(lambda x: 3 if x % 2 == 0 else 1),
+    SixOrderedDominoCreater(lambda x: 4 if x % 2 == 0 else 1),
+    SixOrderedDominoCreater(lambda x: 5 if x % 2 == 0 else 1),
+    SixOrderedDominoCreater(lambda x: 6 if x % 2 == 0 else 1),
 
     SixOrderedDominoCreater(lambda x: 2 if x % 2 == 0 else 0),
     SixOrderedDominoCreater(lambda x: 3 if x % 2 == 0 else 0),
@@ -56,12 +63,6 @@ domino_array_small = [
     SixOrderedDominoCreater(lambda x: 4 if x % 2 else 1),
     SixOrderedDominoCreater(lambda x: 5 if x % 2 else 1),
     SixOrderedDominoCreater(lambda x: 6 if x % 2 else 1),
-
-    SixOrderedDominoCreater(lambda x: 2 if x % 2 == 0 else 1),
-    SixOrderedDominoCreater(lambda x: 3 if x % 2 == 0 else 1),
-    SixOrderedDominoCreater(lambda x: 4 if x % 2 == 0 else 1),
-    SixOrderedDominoCreater(lambda x: 5 if x % 2 == 0 else 1),
-    SixOrderedDominoCreater(lambda x: 6 if x % 2 == 0 else 1),
 
     SixOrderedDominoCreater(lambda x: 4 if x % 2 else 2),
     SixOrderedDominoCreater(lambda x: 5 if x % 2 else 2),
