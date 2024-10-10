@@ -1,7 +1,7 @@
 
 from domino.best_model_container import BestModelObjectContainer
-from domino.order_check import process_order_vars_full
-from domino.domino_generate import get_six_ordered_domino_array, get_eighteen_ordered_domino_array
+from domino.order_check import process_order_vars_full, simmetric_marc
+from domino.domino_generate import all_samples_generators
 from domino.config import RANDOM_SEED
 
 from domino.order_check import ProcessFunc, ProcessFuncsList
@@ -12,15 +12,22 @@ from domino.entrope import get_secondary_growth_entrope, get_entrope
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from progress.bar import IncrementalBar
+import numpy as np
+
+# print(simmetric_marc(np.array([1, 1, 1, 1, 1, 1])))
+
+gen_num = 18
+sample_generator = all_samples_generators[gen_num]
 
 complex_ensemble_funcs = ProcessFuncsList(
   ProcessFunc(get_secondary_growth_entrope, 'Изменение энтропии'),
-  ProcessFunc(ordered_balance, 'Энтропия характеристик\nупорядоченности'),
   ProcessFunc(get_entrope, 'Энтропия', procces_volume_param='both'), 
-  ProcessFunc(balanced_mark, 'Сбалансированность', procces_volume_param='both'),  
+  ProcessFunc(ordered_balance, 'Энтропия характеристик упорядоченности'), 
+  ProcessFunc(balanced_mark, 'Сбалансированность', procces_volume_param='both'), 
+  ProcessFunc(simmetric_marc, 'Оценка симметричности'),
 )
 
-sample = get_six_ordered_domino_array(random_seed=RANDOM_SEED)
+sample = sample_generator(random_seed=RANDOM_SEED)
 
 train_data_base = sample.train_data
 test_data_base = sample.test_data
@@ -70,3 +77,13 @@ for e in n_estimators:
 
 progress_bar.finish()
 print(best_model_container, end='\n\n')
+print(train_data_base.shape[1])
+
+if train_data_base.shape[1] == 6:
+    print(
+        best_model_container.best_model.predict(process_order_vars_full(np.array([[1, 2, 3, 4, 5, 6]]), complex_ensemble_funcs)) == 6,
+        best_model_container.best_model.predict(process_order_vars_full(np.array([[6, 5, 4, 3, 2, 1]]), complex_ensemble_funcs)) == 1,
+        best_model_container.best_model.predict(process_order_vars_full(np.array([[0, 1, 2, 3, 4, 5]]), complex_ensemble_funcs)) == 5,
+        best_model_container.best_model.predict(process_order_vars_full(np.array([[5, 4, 3, 2, 1, 0]]), complex_ensemble_funcs)) == 0,
+        sep='\n'
+    )

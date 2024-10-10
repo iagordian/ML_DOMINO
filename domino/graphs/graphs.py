@@ -69,6 +69,7 @@ class ModelEffectivityGraph(MLGraph):
                      markerfacecolor='white', markersize=8, color='#8a2be2', markeredgecolor='#8a2be2')
         
         plt.xticks(list(range(6, 19)))
+        plt.ylim(0.94, 1.005)
         plt.ylabel('Точность прогноза (Accuracy)', fontweight="bold")
         plt.xlabel('Длина ряда', fontweight="bold")
         for i, data in enumerate(zip(self.data['Точность прогноза'], self.data['Длина ряда']), start=1):
@@ -81,9 +82,9 @@ class ModelEffectivityGraph(MLGraph):
                 i != self.data['Точность прогноза'].shape[0],
                 accur > accur_next or accur_next - accur > 0.06
             ]):
-                accur_pos = accur + 0.005
+                accur_pos = accur + 0.001
             else:
-                accur_pos = accur - 0.006
+                accur_pos = accur - 0.0015
 
             self.ax.annotate(accur, (size + 0.13, accur_pos), zorder=2, fontweight="bold")
 

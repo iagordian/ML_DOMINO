@@ -7,6 +7,7 @@ from domino.domino_generate import all_samples_generators
 from domino.order_check import complex_ensemble_funcs
 
 import numpy as np
+from progress.bar import IncrementalBar
 
 accuracy_data_label = 'RandomForestAccuracy'
 complex_model_logs = {
@@ -20,6 +21,7 @@ params_data_logs = {
 
 feature_importances = []
 
+progress_bar = IncrementalBar('Throughing', max = 12)
 for i in range(6, 19):
 
     sample_generator = all_samples_generators[i]
@@ -38,6 +40,10 @@ for i in range(6, 19):
     complex_model_logs[f'accuracy_{i}'] = random_forest_creator.log_data['accuracy']
     params_data_logs[f'field_size_{i}'] = random_forest_creator.model_params
     feature_importances.append(random_forest_creator.feature_importances)
+
+    progress_bar.next()
+
+progress_bar.finish()
 
 accuracy_log_data = ML_Object(
     model_name = accuracy_data_label,
