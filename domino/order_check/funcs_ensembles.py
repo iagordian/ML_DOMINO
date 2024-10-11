@@ -14,8 +14,7 @@ complex_ensemble_funcs = ProcessFuncsList(
   ProcessFunc(get_entrope, 'Энтропия', procces_volume_param='both'), 
   ProcessFunc(ordered_balance, 'Энтропия характеристик\nупорядоченности'), 
   ProcessFunc(simmetric_marc, 'Оценка симметричности'),
-  ProcessFunc(balanced_mark, 'Сбалансированность', procces_volume_param='both'), 
-  
+  ProcessFunc(balanced_mark, 'Сбалансированность', procces_volume_param='both'),   
 )
 
 mark_domino_to_classificate = partial(get_order_marks_array, complex_ensemble_funcs=complex_ensemble_funcs)

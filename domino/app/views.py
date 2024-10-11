@@ -40,7 +40,7 @@ async def order_check(domino: Domino):
 @app.post('/predict')
 async def predict(domino: Domino):
 
-    predicted_up, predicted_down = DominoDecisionTree.open(domino.size_to_predict).predict(domino)
+    predicted_up, predicted_down, _ = DominoDecisionTree.open(domino.size_to_predict).predict(domino)
     img_bytes = get_img_bytes(predicted_up, predicted_down)
 
     picture_answer = PictureAnswer(

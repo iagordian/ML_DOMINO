@@ -36,23 +36,24 @@ class DominoDecisionTree(Model):
         up_data, down_data = domino.data
         up_data = self.update_input_data(up_data, upgrade=upgrade)
         down_data = self.update_input_data(down_data, upgrade=upgrade)
-        up_predicted = self.get_prediction(up_data)
-        down_predicted = self.get_prediction(down_data)
-        return up_predicted, down_predicted
+        up_predicted, is_sure = self.get_prediction(up_data)
+        down_predicted, is_sure = self.get_prediction(down_data)
+        return up_predicted, down_predicted, is_sure and is_sure
     
     
     def get_prediction(self, data) -> int:
         '''Возвращает предсказание выбранной модели принятия решений'''
         process_data = process_order_vars_full(data, self.forest_model_process_funcs)
-        return int(self.forest_model.predict(process_data)[0])
+        return int(self.forest_model.predict(process_data)[0]), bool(np.sum(self.forest_model.predict_proba(process_data)[0] > 0.4))
     
     
     def ordered_check(self, domino: Domino) -> bool:
         '''Проверяет совпадение предсказанной и реальной домино в переданном ряде'''
-        up, down = self.predict(domino, upgrade=False)
+        up, down, is_sure = self.predict(domino, upgrade=False)
         return all([
             up == domino.up[-1],
             down == domino.down[-1],
+            is_sure
         ])
     
     def update_input_data(self, data: np.ndarray, upgrade: Optional[bool] = True):

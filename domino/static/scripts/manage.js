@@ -206,9 +206,11 @@ function domino_rollback() {
 
 function switch_mode() {
 
-    $('#table').removeClass('ordered_false')
-    $('#table').removeClass('ordered_true')
-    $('#table').removeClass('ordered_unknow')
+    if ($(this).attr('id') == 'predict_radio') {
+        $('#table').removeClass('ordered_false')
+        $('#table').removeClass('ordered_true')
+        $('#table').removeClass('ordered_unknow')
+    }
     
     var n = get_stack_max_size_to_predict()
     if (up.length == n) {

@@ -41,7 +41,7 @@ def process_order_vars_full(data: np.ndarray, process_funcs: ProcessFuncsList) -
 def get_order_marks_array(data: List[float], complex_ensemble_funcs: List[Callable]) -> List[float]:
     '''Возвращает массив оценок упорядоченности для массива'''
 
-    if isinstance(data, pd.Series):
+    if isinstance(data, (pd.Series, list)):
        data = np.array(data)
            
     exit = []
