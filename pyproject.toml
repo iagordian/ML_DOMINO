@@ -1,17 +1,21 @@
 [tool.poetry]
-name = "domino"
-version = "0.1.0"
-description = ""
-authors = ["gia <gia@dipcenter.ru>"]
-readme = "README.md"
+name = "ml_domino"
+version = "1"
+description = "1"
+authors = ["Your Name <you@example.com>"]
+license = "n"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pydantic = "^2.8.2"
-numpy = "^2.1.0"
-sqlalchemy = "^2.0.32"
+pydantic = "^2.10.5"
+numpy = "^2.2.1"
+SQLAlchemy = "^2.0.37"
+scikit-learn = "^1.6.1"
+pandas = "^2.2.3"
+progress = "^1.6"
 
+[tool.poetry.dev-dependencies]
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

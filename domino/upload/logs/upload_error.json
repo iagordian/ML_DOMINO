@@ -1,3 +1,0 @@
-{
-   "ml_models": "(builtins.TypeError) memoryview: a bytes-like object is required, not 'pydantic_core._pydantic_core.SerializationIterator'\n[SQL: INSERT INTO ml_objects (model_name, model_obj, threshold, logs, is_the_best_classifier_model) VALUES (?, ?, ?, ?, ?)]\n[parameters: [{'logs': {'model_name': 'LinearRegression', 'AUC': 0.5, 'intercept_': 0.1779996996279702, 'coef_': [-0.12440202221039308, -0.006020426231402379, -0.01 ... (974 characters truncated) ... n', 'model_obj': SerializationIterator(index=0, iterator=<_io.BytesIO object at 0x7f1083838400>), 'threshold': 0.5, 'is_the_best_classifier_model': 0}]]"
-}

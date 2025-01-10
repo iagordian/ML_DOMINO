@@ -5,8 +5,6 @@ var main = (function () {
      // Привязка событий
      function _bindHandlers() {
 
-      console.log('GUPUUHwwUH!!!!')
-
         $('#main').on('click.main', '.domino_pic', add_domino)
         $('#main').on('click.main', '#clean', clear_table)
         $('#main').on('click.main', '#domino_rollback', domino_rollback)

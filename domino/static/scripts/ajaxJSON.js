@@ -43,7 +43,7 @@ var AjaxQuery = (function () {
 
   function getJSON(header, done_func) {
     return AjaxQueryBase.info(header).done(function(data) {
-          done_func(data)
+        done_func(data)
     })
   }
 

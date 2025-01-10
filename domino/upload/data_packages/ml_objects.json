@@ -149,18 +149,18 @@
          "logs": {
             "model_name": "RandomForestAccuracy",
             "accuracy_6": 0.9811320754716981,
-            "accuracy_7": 0.9583333333333334,
-            "accuracy_8": 0.9578947368421052,
+            "accuracy_7": 0.96875,
+            "accuracy_8": 0.9473684210526315,
             "accuracy_9": 0.9789473684210527,
-            "accuracy_10": 0.968421052631579,
+            "accuracy_10": 0.9578947368421052,
             "accuracy_11": 1.0,
-            "accuracy_12": 1.0,
-            "accuracy_13": 0.8421052631578947,
-            "accuracy_14": 0.7894736842105263,
-            "accuracy_15": 0.9894736842105263,
+            "accuracy_12": 0.9894736842105263,
+            "accuracy_13": 0.9578947368421052,
+            "accuracy_14": 0.968421052631579,
+            "accuracy_15": 0.968421052631579,
             "accuracy_16": 0.9894736842105263,
             "accuracy_17": 0.9894736842105263,
-            "accuracy_18": 0.9894736842105263
+            "accuracy_18": 0.9789473684210527
          },
          "is_the_best_classifier_model": 0
       },
@@ -169,98 +169,98 @@
          "logs": {
             "model_name": "RandomForestParams",
             "field_size_6": {
-               "criterion": "entropy",
+               "criterion": "gini",
                "n_estimators": 128,
                "max_depth": 32,
                "min_samples_split": 2,
                "min_samples_leaf": 1,
-               "max_features": "log2",
+               "max_features": "sqrt",
                "random_state": 42
             },
             "field_size_7": {
-               "criterion": "entropy",
+               "criterion": "gini",
                "n_estimators": 32,
                "max_depth": 16,
-               "min_samples_split": 8,
+               "min_samples_split": 4,
                "min_samples_leaf": 2,
                "max_features": "log2",
                "random_state": 42
             },
             "field_size_8": {
                "criterion": "gini",
-               "n_estimators": 16,
+               "n_estimators": 128,
                "max_depth": 32,
-               "min_samples_split": 8,
-               "min_samples_leaf": 1,
-               "max_features": "sqrt",
+               "min_samples_split": 4,
+               "min_samples_leaf": 2,
+               "max_features": "log2",
                "random_state": 42
             },
             "field_size_9": {
-               "criterion": "gini",
-               "n_estimators": 64,
-               "max_depth": 16,
+               "criterion": "entropy",
+               "n_estimators": 128,
+               "max_depth": 8,
                "min_samples_split": 4,
                "min_samples_leaf": 1,
                "max_features": "sqrt",
                "random_state": 42
             },
             "field_size_10": {
-               "criterion": "entropy",
-               "n_estimators": 8,
-               "max_depth": 8,
-               "min_samples_split": 8,
-               "min_samples_leaf": 2,
+               "criterion": "gini",
+               "n_estimators": 64,
+               "max_depth": 32,
+               "min_samples_split": 4,
+               "min_samples_leaf": 1,
                "max_features": "sqrt",
                "random_state": 42
             },
             "field_size_11": {
-               "criterion": "entropy",
-               "n_estimators": 8,
+               "criterion": "gini",
+               "n_estimators": 64,
                "max_depth": 8,
-               "min_samples_split": 16,
-               "min_samples_leaf": 2,
+               "min_samples_split": 2,
+               "min_samples_leaf": 1,
                "max_features": "sqrt",
                "random_state": 42
             },
             "field_size_12": {
-               "criterion": "entropy",
+               "criterion": "gini",
                "n_estimators": 8,
                "max_depth": 8,
                "min_samples_split": 16,
                "min_samples_leaf": 1,
-               "max_features": "log2",
+               "max_features": "sqrt",
                "random_state": 42
             },
             "field_size_13": {
                "criterion": "gini",
-               "n_estimators": 8,
+               "n_estimators": 64,
                "max_depth": 16,
-               "min_samples_split": 4,
-               "min_samples_leaf": 2,
-               "max_features": "sqrt",
-               "random_state": 42
-            },
-            "field_size_14": {
-               "criterion": "gini",
-               "n_estimators": 8,
-               "max_depth": 8,
                "min_samples_split": 8,
                "min_samples_leaf": 4,
                "max_features": "sqrt",
                "random_state": 42
             },
-            "field_size_15": {
-               "criterion": "entropy",
-               "n_estimators": 8,
+            "field_size_14": {
+               "criterion": "gini",
+               "n_estimators": 16,
                "max_depth": 16,
                "min_samples_split": 16,
-               "min_samples_leaf": 2,
+               "min_samples_leaf": 1,
+               "max_features": "log2",
+               "random_state": 42
+            },
+            "field_size_15": {
+               "criterion": "gini",
+               "n_estimators": 128,
+               "max_depth": 8,
+               "min_samples_split": 8,
+               "min_samples_leaf": 1,
                "max_features": "log2",
                "random_state": 42
             },
             "field_size_16": {
                "criterion": "gini",
-               "n_estimators": 8,
+               "n_estimators": 64,
                "max_depth": 8,
                "min_samples_split": 8,
                "min_samples_leaf": 1,
@@ -269,20 +269,20 @@
             },
             "field_size_17": {
                "criterion": "gini",
-               "n_estimators": 8,
-               "max_depth": 8,
-               "min_samples_split": 8,
-               "min_samples_leaf": 2,
-               "max_features": "log2",
+               "n_estimators": 128,
+               "max_depth": 16,
+               "min_samples_split": 2,
+               "min_samples_leaf": 1,
+               "max_features": "sqrt",
                "random_state": 42
             },
             "field_size_18": {
-               "criterion": "gini",
+               "criterion": "entropy",
                "n_estimators": 8,
-               "max_depth": 8,
-               "min_samples_split": 16,
-               "min_samples_leaf": 2,
-               "max_features": "sqrt",
+               "max_depth": 16,
+               "min_samples_split": 4,
+               "min_samples_leaf": 1,
+               "max_features": "log2",
                "random_state": 42
             }
          },
@@ -292,12 +292,13 @@
          "model_name": "FeatureImportances",
          "logs": {
             "model_name": "FeatureImportances",
-            "Изменение энтропии": 0.22267129141340153,
-            "Энтропия характеристик упорядоченности": 0.0663561831718123,
-            "Энтропия": 0.11781991209759503,
-            "Энтропия (извлечено основное)": 0.41516217780996756,
-            "Сбалансированность": 0.12115797385662003,
-            "Сбалансированность (извлечено основное)": 0.056832461650603565
+            "Изменение энтропии": 0.1201855083542418,
+            "Энтропия": 0.060438096988721705,
+            "Энтропия (извлечено основное)": 0.20208705356736104,
+            "Энтропия характеристик упорядоченности": 0.030265737548816198,
+            "Оценка симметричности": 0.4759992290616318,
+            "Сбалансированность": 0.08841844988969973,
+            "Сбалансированность (извлечено основное)": 0.0226059245895278
          },
          "is_the_best_classifier_model": 0
       }

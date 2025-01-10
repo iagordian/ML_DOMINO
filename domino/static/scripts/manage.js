@@ -131,6 +131,7 @@ function send_domino_data_to_predict() {
     }
 
     AjaxQuery.info(header, function(data) {
+        
         domino_img = data['img']
 
         domino_img = jQuery(domino_img)              
